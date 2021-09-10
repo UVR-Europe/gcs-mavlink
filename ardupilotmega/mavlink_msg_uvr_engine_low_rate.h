@@ -6,21 +6,22 @@
 
 typedef struct __mavlink_uvr_engine_low_rate_t {
  float oil_temperature_1; /*< [degC] Oil Temperature 1st Board.*/
- float oil_pressure_1; /*< [kPa] Oil Pressure 1st Board.*/
+ float oil_pressure_1; /*< [bar] Oil Pressure 1st Board.*/
  float oil_temperature_2; /*< [degC] Oil Temperature 2nd Board.*/
- float oil_pressure_2; /*< [kPa] Oil Temperature 2nd Board.*/
+ float oil_pressure_2; /*< [bar] Oil Temperature 2nd Board.*/
  float head1_temperature; /*< [degC] 1st Cylinder Head Temperature.*/
  float head2_temperature; /*< [degC] 2nd Cylinder Head Temperature.*/
- float turbine_pressure; /*< [kPa] Turbine pressure.*/
+ float turbine_pressure; /*< [InHg] Turbine pressure.*/
+ float fuel_pressure; /*< [bar] Fuel pressure.*/
 } mavlink_uvr_engine_low_rate_t;
 
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN 28
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN 28
-#define MAVLINK_MSG_ID_15001_LEN 28
-#define MAVLINK_MSG_ID_15001_MIN_LEN 28
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN 32
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN 32
+#define MAVLINK_MSG_ID_15001_LEN 32
+#define MAVLINK_MSG_ID_15001_MIN_LEN 32
 
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC 161
-#define MAVLINK_MSG_ID_15001_CRC 161
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC 16
+#define MAVLINK_MSG_ID_15001_CRC 16
 
 
 
@@ -28,7 +29,7 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
 #define MAVLINK_MESSAGE_INFO_UVR_ENGINE_LOW_RATE { \
     15001, \
     "UVR_ENGINE_LOW_RATE", \
-    7, \
+    8, \
     {  { "oil_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_1) }, \
          { "oil_pressure_1", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uvr_engine_low_rate_t, oil_pressure_1) }, \
          { "oil_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_2) }, \
@@ -36,12 +37,13 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
          { "head1_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_uvr_engine_low_rate_t, head1_temperature) }, \
          { "head2_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_uvr_engine_low_rate_t, head2_temperature) }, \
          { "turbine_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_uvr_engine_low_rate_t, turbine_pressure) }, \
+         { "fuel_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_engine_low_rate_t, fuel_pressure) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_UVR_ENGINE_LOW_RATE { \
     "UVR_ENGINE_LOW_RATE", \
-    7, \
+    8, \
     {  { "oil_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_1) }, \
          { "oil_pressure_1", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uvr_engine_low_rate_t, oil_pressure_1) }, \
          { "oil_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_2) }, \
@@ -49,6 +51,7 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
          { "head1_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_uvr_engine_low_rate_t, head1_temperature) }, \
          { "head2_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_uvr_engine_low_rate_t, head2_temperature) }, \
          { "turbine_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_uvr_engine_low_rate_t, turbine_pressure) }, \
+         { "fuel_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_engine_low_rate_t, fuel_pressure) }, \
          } \
 }
 #endif
@@ -60,16 +63,17 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param oil_temperature_1 [degC] Oil Temperature 1st Board.
- * @param oil_pressure_1 [kPa] Oil Pressure 1st Board.
+ * @param oil_pressure_1 [bar] Oil Pressure 1st Board.
  * @param oil_temperature_2 [degC] Oil Temperature 2nd Board.
- * @param oil_pressure_2 [kPa] Oil Temperature 2nd Board.
+ * @param oil_pressure_2 [bar] Oil Temperature 2nd Board.
  * @param head1_temperature [degC] 1st Cylinder Head Temperature.
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
- * @param turbine_pressure [kPa] Turbine pressure.
+ * @param turbine_pressure [InHg] Turbine pressure.
+ * @param fuel_pressure [bar] Fuel pressure.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure)
+                               float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -80,6 +84,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
     _mav_put_float(buf, 16, head1_temperature);
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
+    _mav_put_float(buf, 28, fuel_pressure);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #else
@@ -91,6 +96,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
     packet.head1_temperature = head1_temperature;
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
+    packet.fuel_pressure = fuel_pressure;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #endif
@@ -106,17 +112,18 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param oil_temperature_1 [degC] Oil Temperature 1st Board.
- * @param oil_pressure_1 [kPa] Oil Pressure 1st Board.
+ * @param oil_pressure_1 [bar] Oil Pressure 1st Board.
  * @param oil_temperature_2 [degC] Oil Temperature 2nd Board.
- * @param oil_pressure_2 [kPa] Oil Temperature 2nd Board.
+ * @param oil_pressure_2 [bar] Oil Temperature 2nd Board.
  * @param head1_temperature [degC] 1st Cylinder Head Temperature.
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
- * @param turbine_pressure [kPa] Turbine pressure.
+ * @param turbine_pressure [InHg] Turbine pressure.
+ * @param fuel_pressure [bar] Fuel pressure.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float oil_temperature_1,float oil_pressure_1,float oil_temperature_2,float oil_pressure_2,float head1_temperature,float head2_temperature,float turbine_pressure)
+                                   float oil_temperature_1,float oil_pressure_1,float oil_temperature_2,float oil_pressure_2,float head1_temperature,float head2_temperature,float turbine_pressure,float fuel_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -127,6 +134,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
     _mav_put_float(buf, 16, head1_temperature);
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
+    _mav_put_float(buf, 28, fuel_pressure);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #else
@@ -138,6 +146,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
     packet.head1_temperature = head1_temperature;
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
+    packet.fuel_pressure = fuel_pressure;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #endif
@@ -156,7 +165,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
-    return mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure);
+    return mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
 }
 
 /**
@@ -170,7 +179,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
-    return mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, chan, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure);
+    return mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, chan, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
 }
 
 /**
@@ -178,16 +187,17 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode_chan(uint8_t syste
  * @param chan MAVLink channel to send the message
  *
  * @param oil_temperature_1 [degC] Oil Temperature 1st Board.
- * @param oil_pressure_1 [kPa] Oil Pressure 1st Board.
+ * @param oil_pressure_1 [bar] Oil Pressure 1st Board.
  * @param oil_temperature_2 [degC] Oil Temperature 2nd Board.
- * @param oil_pressure_2 [kPa] Oil Temperature 2nd Board.
+ * @param oil_pressure_2 [bar] Oil Temperature 2nd Board.
  * @param head1_temperature [degC] 1st Cylinder Head Temperature.
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
- * @param turbine_pressure [kPa] Turbine pressure.
+ * @param turbine_pressure [InHg] Turbine pressure.
+ * @param fuel_pressure [bar] Fuel pressure.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure)
+static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -198,6 +208,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
     _mav_put_float(buf, 16, head1_temperature);
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
+    _mav_put_float(buf, 28, fuel_pressure);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #else
@@ -209,6 +220,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
     packet.head1_temperature = head1_temperature;
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
+    packet.fuel_pressure = fuel_pressure;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)&packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -222,7 +234,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
 static inline void mavlink_msg_uvr_engine_low_rate_send_struct(mavlink_channel_t chan, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uvr_engine_low_rate_send(chan, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure);
+    mavlink_msg_uvr_engine_low_rate_send(chan, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)uvr_engine_low_rate, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -236,7 +248,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure)
+static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -247,6 +259,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *m
     _mav_put_float(buf, 16, head1_temperature);
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
+    _mav_put_float(buf, 28, fuel_pressure);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #else
@@ -258,6 +271,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *m
     packet->head1_temperature = head1_temperature;
     packet->head2_temperature = head2_temperature;
     packet->turbine_pressure = turbine_pressure;
+    packet->fuel_pressure = fuel_pressure;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -282,7 +296,7 @@ static inline float mavlink_msg_uvr_engine_low_rate_get_oil_temperature_1(const 
 /**
  * @brief Get field oil_pressure_1 from uvr_engine_low_rate message
  *
- * @return [kPa] Oil Pressure 1st Board.
+ * @return [bar] Oil Pressure 1st Board.
  */
 static inline float mavlink_msg_uvr_engine_low_rate_get_oil_pressure_1(const mavlink_message_t* msg)
 {
@@ -302,7 +316,7 @@ static inline float mavlink_msg_uvr_engine_low_rate_get_oil_temperature_2(const 
 /**
  * @brief Get field oil_pressure_2 from uvr_engine_low_rate message
  *
- * @return [kPa] Oil Temperature 2nd Board.
+ * @return [bar] Oil Temperature 2nd Board.
  */
 static inline float mavlink_msg_uvr_engine_low_rate_get_oil_pressure_2(const mavlink_message_t* msg)
 {
@@ -332,11 +346,21 @@ static inline float mavlink_msg_uvr_engine_low_rate_get_head2_temperature(const 
 /**
  * @brief Get field turbine_pressure from uvr_engine_low_rate message
  *
- * @return [kPa] Turbine pressure.
+ * @return [InHg] Turbine pressure.
  */
 static inline float mavlink_msg_uvr_engine_low_rate_get_turbine_pressure(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg,  24);
+}
+
+/**
+ * @brief Get field fuel_pressure from uvr_engine_low_rate message
+ *
+ * @return [bar] Fuel pressure.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_fuel_pressure(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  28);
 }
 
 /**
@@ -355,6 +379,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_decode(const mavlink_message_
     uvr_engine_low_rate->head1_temperature = mavlink_msg_uvr_engine_low_rate_get_head1_temperature(msg);
     uvr_engine_low_rate->head2_temperature = mavlink_msg_uvr_engine_low_rate_get_head2_temperature(msg);
     uvr_engine_low_rate->turbine_pressure = mavlink_msg_uvr_engine_low_rate_get_turbine_pressure(msg);
+    uvr_engine_low_rate->fuel_pressure = mavlink_msg_uvr_engine_low_rate_get_fuel_pressure(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN? msg->len : MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN;
         memset(uvr_engine_low_rate, 0, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);

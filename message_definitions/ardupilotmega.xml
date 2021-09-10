@@ -1655,12 +1655,13 @@
     <message id="15001" name="UVR_ENGINE_LOW_RATE">
       <description>Fuel Engine Low Rate Telemetry Data</description>
       <field type="float" name="oil_temperature_1" units="degC">Oil Temperature 1st Board.</field>
-      <field type="float" name="oil_pressure_1" units="kPa">Oil Pressure 1st Board.</field>
+      <field type="float" name="oil_pressure_1" units="bar">Oil Pressure 1st Board.</field>
       <field type="float" name="oil_temperature_2" units="degC">Oil Temperature 2nd Board.</field>
-      <field type="float" name="oil_pressure_2" units="kPa">Oil Temperature 2nd Board.</field>
+      <field type="float" name="oil_pressure_2" units="bar">Oil Temperature 2nd Board.</field>
       <field type="float" name="head1_temperature" units="degC">1st Cylinder Head Temperature.</field>
       <field type="float" name="head2_temperature" units="degC">2nd Cylinder Head Temperature.</field>
-      <field type="float" name="turbine_pressure" units="kPa">Turbine pressure.</field>
+      <field type="float" name="turbine_pressure" units="InHg">Turbine pressure.</field>
+      <field type="float" name="fuel_pressure" units="bar">Fuel pressure.</field>
     </message>
   </messages>
 </mavlink>
