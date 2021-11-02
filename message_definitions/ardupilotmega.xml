@@ -1674,7 +1674,7 @@
       <!--[TODO] move separate -->
       <field type="float" name="frame_pressure" units="bar">Frame pressure.</field>
     </message>
-    <message id="15002" name="BATTERY_UVR">
+    <message id="15002" name="UVR_BATTERY">
       <description>UVR Battery status</description>
       <field type="int8_t" name="battery_id">Battery ID</field>
       <field type="uint16_t" name="voltage" units="mV">Voltage</field>
