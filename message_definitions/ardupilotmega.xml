@@ -1662,6 +1662,22 @@
       <field type="float" name="head2_temperature" units="degC">2nd Cylinder Head Temperature.</field>
       <field type="float" name="turbine_pressure" units="InHg">Turbine pressure.</field>
       <field type="float" name="fuel_pressure" units="bar">Fuel pressure.</field>
+
+      <field type="float" name="exhaust_temperature_1" units="degC">Exhaust 1 Temperature.</field>
+      <field type="float" name="exhaust_temperature_2" units="degC">Exhaust 2 Temperature.</field>
+      <field type="float" name="exhaust_temperature_3" units="degC">Exhaust 3 Temperature.</field>
+      <field type="float" name="exhaust_temperature_4" units="degC">Exhaust 4 Temperature.</field>
+
+      <field type="float" name="coolant_temperature" units="degC">Coolant Temperature.</field>
+      <field type="uint8_t" name="turbine_state_flags">Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM</field>
+      <field type="uint8_t" name="clutch_state_flags">Clutch state flags: b0:BOTTOM; b1:TOP</field>
+      <!--[TODO] move separate -->
+      <field type="float" name="frame_pressure" units="bar">Frame pressure.</field>
+    </message>
+    <message id="15002" name="BATTERY_UVR">
+      <description>UVR Battery status</description>
+      <field type="int8_t" name="battery_id">Battery ID</field>
+      <field type="uint16_t" name="voltage" units="mV">Voltage</field>
     </message>
   </messages>
 </mavlink>

@@ -13,15 +13,23 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
  float head2_temperature; /*< [degC] 2nd Cylinder Head Temperature.*/
  float turbine_pressure; /*< [InHg] Turbine pressure.*/
  float fuel_pressure; /*< [bar] Fuel pressure.*/
+ float exhaust_temperature_1; /*< [degC] Exhaust 1 Temperature.*/
+ float exhaust_temperature_2; /*< [degC] Exhaust 2 Temperature.*/
+ float exhaust_temperature_3; /*< [degC] Exhaust 3 Temperature.*/
+ float exhaust_temperature_4; /*< [degC] Exhaust 4 Temperature.*/
+ float coolant_temperature; /*< [degC] Coolant Temperature.*/
+ float frame_pressure; /*< [bar] Frame pressure.*/
+ uint8_t turbine_state_flags; /*<  Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM*/
+ uint8_t clutch_state_flags; /*<  Clutch state flags: b0:BOTTOM; b1:TOP*/
 } mavlink_uvr_engine_low_rate_t;
 
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN 32
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN 32
-#define MAVLINK_MSG_ID_15001_LEN 32
-#define MAVLINK_MSG_ID_15001_MIN_LEN 32
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN 58
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN 58
+#define MAVLINK_MSG_ID_15001_LEN 58
+#define MAVLINK_MSG_ID_15001_MIN_LEN 58
 
-#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC 16
-#define MAVLINK_MSG_ID_15001_CRC 16
+#define MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC 21
+#define MAVLINK_MSG_ID_15001_CRC 21
 
 
 
@@ -29,7 +37,7 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
 #define MAVLINK_MESSAGE_INFO_UVR_ENGINE_LOW_RATE { \
     15001, \
     "UVR_ENGINE_LOW_RATE", \
-    8, \
+    16, \
     {  { "oil_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_1) }, \
          { "oil_pressure_1", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uvr_engine_low_rate_t, oil_pressure_1) }, \
          { "oil_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_2) }, \
@@ -38,12 +46,20 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
          { "head2_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_uvr_engine_low_rate_t, head2_temperature) }, \
          { "turbine_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_uvr_engine_low_rate_t, turbine_pressure) }, \
          { "fuel_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_engine_low_rate_t, fuel_pressure) }, \
+         { "exhaust_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_1) }, \
+         { "exhaust_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_2) }, \
+         { "exhaust_temperature_3", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_3) }, \
+         { "exhaust_temperature_4", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_4) }, \
+         { "coolant_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_uvr_engine_low_rate_t, coolant_temperature) }, \
+         { "turbine_state_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 56, offsetof(mavlink_uvr_engine_low_rate_t, turbine_state_flags) }, \
+         { "clutch_state_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 57, offsetof(mavlink_uvr_engine_low_rate_t, clutch_state_flags) }, \
+         { "frame_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_uvr_engine_low_rate_t, frame_pressure) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_UVR_ENGINE_LOW_RATE { \
     "UVR_ENGINE_LOW_RATE", \
-    8, \
+    16, \
     {  { "oil_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_1) }, \
          { "oil_pressure_1", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uvr_engine_low_rate_t, oil_pressure_1) }, \
          { "oil_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uvr_engine_low_rate_t, oil_temperature_2) }, \
@@ -52,6 +68,14 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
          { "head2_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_uvr_engine_low_rate_t, head2_temperature) }, \
          { "turbine_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_uvr_engine_low_rate_t, turbine_pressure) }, \
          { "fuel_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_engine_low_rate_t, fuel_pressure) }, \
+         { "exhaust_temperature_1", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_1) }, \
+         { "exhaust_temperature_2", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_2) }, \
+         { "exhaust_temperature_3", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_3) }, \
+         { "exhaust_temperature_4", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_uvr_engine_low_rate_t, exhaust_temperature_4) }, \
+         { "coolant_temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_uvr_engine_low_rate_t, coolant_temperature) }, \
+         { "turbine_state_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 56, offsetof(mavlink_uvr_engine_low_rate_t, turbine_state_flags) }, \
+         { "clutch_state_flags", NULL, MAVLINK_TYPE_UINT8_T, 0, 57, offsetof(mavlink_uvr_engine_low_rate_t, clutch_state_flags) }, \
+         { "frame_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_uvr_engine_low_rate_t, frame_pressure) }, \
          } \
 }
 #endif
@@ -70,10 +94,18 @@ typedef struct __mavlink_uvr_engine_low_rate_t {
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
  * @param turbine_pressure [InHg] Turbine pressure.
  * @param fuel_pressure [bar] Fuel pressure.
+ * @param exhaust_temperature_1 [degC] Exhaust 1 Temperature.
+ * @param exhaust_temperature_2 [degC] Exhaust 2 Temperature.
+ * @param exhaust_temperature_3 [degC] Exhaust 3 Temperature.
+ * @param exhaust_temperature_4 [degC] Exhaust 4 Temperature.
+ * @param coolant_temperature [degC] Coolant Temperature.
+ * @param turbine_state_flags  Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM
+ * @param clutch_state_flags  Clutch state flags: b0:BOTTOM; b1:TOP
+ * @param frame_pressure [bar] Frame pressure.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
+                               float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure, float exhaust_temperature_1, float exhaust_temperature_2, float exhaust_temperature_3, float exhaust_temperature_4, float coolant_temperature, uint8_t turbine_state_flags, uint8_t clutch_state_flags, float frame_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -85,6 +117,14 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
     _mav_put_float(buf, 28, fuel_pressure);
+    _mav_put_float(buf, 32, exhaust_temperature_1);
+    _mav_put_float(buf, 36, exhaust_temperature_2);
+    _mav_put_float(buf, 40, exhaust_temperature_3);
+    _mav_put_float(buf, 44, exhaust_temperature_4);
+    _mav_put_float(buf, 48, coolant_temperature);
+    _mav_put_float(buf, 52, frame_pressure);
+    _mav_put_uint8_t(buf, 56, turbine_state_flags);
+    _mav_put_uint8_t(buf, 57, clutch_state_flags);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #else
@@ -97,6 +137,14 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
     packet.fuel_pressure = fuel_pressure;
+    packet.exhaust_temperature_1 = exhaust_temperature_1;
+    packet.exhaust_temperature_2 = exhaust_temperature_2;
+    packet.exhaust_temperature_3 = exhaust_temperature_3;
+    packet.exhaust_temperature_4 = exhaust_temperature_4;
+    packet.coolant_temperature = coolant_temperature;
+    packet.frame_pressure = frame_pressure;
+    packet.turbine_state_flags = turbine_state_flags;
+    packet.clutch_state_flags = clutch_state_flags;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #endif
@@ -119,11 +167,19 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack(uint8_t system_id, u
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
  * @param turbine_pressure [InHg] Turbine pressure.
  * @param fuel_pressure [bar] Fuel pressure.
+ * @param exhaust_temperature_1 [degC] Exhaust 1 Temperature.
+ * @param exhaust_temperature_2 [degC] Exhaust 2 Temperature.
+ * @param exhaust_temperature_3 [degC] Exhaust 3 Temperature.
+ * @param exhaust_temperature_4 [degC] Exhaust 4 Temperature.
+ * @param coolant_temperature [degC] Coolant Temperature.
+ * @param turbine_state_flags  Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM
+ * @param clutch_state_flags  Clutch state flags: b0:BOTTOM; b1:TOP
+ * @param frame_pressure [bar] Frame pressure.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float oil_temperature_1,float oil_pressure_1,float oil_temperature_2,float oil_pressure_2,float head1_temperature,float head2_temperature,float turbine_pressure,float fuel_pressure)
+                                   float oil_temperature_1,float oil_pressure_1,float oil_temperature_2,float oil_pressure_2,float head1_temperature,float head2_temperature,float turbine_pressure,float fuel_pressure,float exhaust_temperature_1,float exhaust_temperature_2,float exhaust_temperature_3,float exhaust_temperature_4,float coolant_temperature,uint8_t turbine_state_flags,uint8_t clutch_state_flags,float frame_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -135,6 +191,14 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
     _mav_put_float(buf, 28, fuel_pressure);
+    _mav_put_float(buf, 32, exhaust_temperature_1);
+    _mav_put_float(buf, 36, exhaust_temperature_2);
+    _mav_put_float(buf, 40, exhaust_temperature_3);
+    _mav_put_float(buf, 44, exhaust_temperature_4);
+    _mav_put_float(buf, 48, coolant_temperature);
+    _mav_put_float(buf, 52, frame_pressure);
+    _mav_put_uint8_t(buf, 56, turbine_state_flags);
+    _mav_put_uint8_t(buf, 57, clutch_state_flags);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #else
@@ -147,6 +211,14 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
     packet.fuel_pressure = fuel_pressure;
+    packet.exhaust_temperature_1 = exhaust_temperature_1;
+    packet.exhaust_temperature_2 = exhaust_temperature_2;
+    packet.exhaust_temperature_3 = exhaust_temperature_3;
+    packet.exhaust_temperature_4 = exhaust_temperature_4;
+    packet.coolant_temperature = coolant_temperature;
+    packet.frame_pressure = frame_pressure;
+    packet.turbine_state_flags = turbine_state_flags;
+    packet.clutch_state_flags = clutch_state_flags;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
 #endif
@@ -165,7 +237,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_pack_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
-    return mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
+    return mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure, uvr_engine_low_rate->exhaust_temperature_1, uvr_engine_low_rate->exhaust_temperature_2, uvr_engine_low_rate->exhaust_temperature_3, uvr_engine_low_rate->exhaust_temperature_4, uvr_engine_low_rate->coolant_temperature, uvr_engine_low_rate->turbine_state_flags, uvr_engine_low_rate->clutch_state_flags, uvr_engine_low_rate->frame_pressure);
 }
 
 /**
@@ -179,7 +251,7 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
-    return mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, chan, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
+    return mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, chan, msg, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure, uvr_engine_low_rate->exhaust_temperature_1, uvr_engine_low_rate->exhaust_temperature_2, uvr_engine_low_rate->exhaust_temperature_3, uvr_engine_low_rate->exhaust_temperature_4, uvr_engine_low_rate->coolant_temperature, uvr_engine_low_rate->turbine_state_flags, uvr_engine_low_rate->clutch_state_flags, uvr_engine_low_rate->frame_pressure);
 }
 
 /**
@@ -194,10 +266,18 @@ static inline uint16_t mavlink_msg_uvr_engine_low_rate_encode_chan(uint8_t syste
  * @param head2_temperature [degC] 2nd Cylinder Head Temperature.
  * @param turbine_pressure [InHg] Turbine pressure.
  * @param fuel_pressure [bar] Fuel pressure.
+ * @param exhaust_temperature_1 [degC] Exhaust 1 Temperature.
+ * @param exhaust_temperature_2 [degC] Exhaust 2 Temperature.
+ * @param exhaust_temperature_3 [degC] Exhaust 3 Temperature.
+ * @param exhaust_temperature_4 [degC] Exhaust 4 Temperature.
+ * @param coolant_temperature [degC] Coolant Temperature.
+ * @param turbine_state_flags  Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM
+ * @param clutch_state_flags  Clutch state flags: b0:BOTTOM; b1:TOP
+ * @param frame_pressure [bar] Frame pressure.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
+static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure, float exhaust_temperature_1, float exhaust_temperature_2, float exhaust_temperature_3, float exhaust_temperature_4, float coolant_temperature, uint8_t turbine_state_flags, uint8_t clutch_state_flags, float frame_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN];
@@ -209,6 +289,14 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
     _mav_put_float(buf, 28, fuel_pressure);
+    _mav_put_float(buf, 32, exhaust_temperature_1);
+    _mav_put_float(buf, 36, exhaust_temperature_2);
+    _mav_put_float(buf, 40, exhaust_temperature_3);
+    _mav_put_float(buf, 44, exhaust_temperature_4);
+    _mav_put_float(buf, 48, coolant_temperature);
+    _mav_put_float(buf, 52, frame_pressure);
+    _mav_put_uint8_t(buf, 56, turbine_state_flags);
+    _mav_put_uint8_t(buf, 57, clutch_state_flags);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #else
@@ -221,6 +309,14 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
     packet.head2_temperature = head2_temperature;
     packet.turbine_pressure = turbine_pressure;
     packet.fuel_pressure = fuel_pressure;
+    packet.exhaust_temperature_1 = exhaust_temperature_1;
+    packet.exhaust_temperature_2 = exhaust_temperature_2;
+    packet.exhaust_temperature_3 = exhaust_temperature_3;
+    packet.exhaust_temperature_4 = exhaust_temperature_4;
+    packet.coolant_temperature = coolant_temperature;
+    packet.frame_pressure = frame_pressure;
+    packet.turbine_state_flags = turbine_state_flags;
+    packet.clutch_state_flags = clutch_state_flags;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)&packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -234,7 +330,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send(mavlink_channel_t chan, 
 static inline void mavlink_msg_uvr_engine_low_rate_send_struct(mavlink_channel_t chan, const mavlink_uvr_engine_low_rate_t* uvr_engine_low_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uvr_engine_low_rate_send(chan, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure);
+    mavlink_msg_uvr_engine_low_rate_send(chan, uvr_engine_low_rate->oil_temperature_1, uvr_engine_low_rate->oil_pressure_1, uvr_engine_low_rate->oil_temperature_2, uvr_engine_low_rate->oil_pressure_2, uvr_engine_low_rate->head1_temperature, uvr_engine_low_rate->head2_temperature, uvr_engine_low_rate->turbine_pressure, uvr_engine_low_rate->fuel_pressure, uvr_engine_low_rate->exhaust_temperature_1, uvr_engine_low_rate->exhaust_temperature_2, uvr_engine_low_rate->exhaust_temperature_3, uvr_engine_low_rate->exhaust_temperature_4, uvr_engine_low_rate->coolant_temperature, uvr_engine_low_rate->turbine_state_flags, uvr_engine_low_rate->clutch_state_flags, uvr_engine_low_rate->frame_pressure);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)uvr_engine_low_rate, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -248,7 +344,7 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure)
+static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float oil_temperature_1, float oil_pressure_1, float oil_temperature_2, float oil_pressure_2, float head1_temperature, float head2_temperature, float turbine_pressure, float fuel_pressure, float exhaust_temperature_1, float exhaust_temperature_2, float exhaust_temperature_3, float exhaust_temperature_4, float coolant_temperature, uint8_t turbine_state_flags, uint8_t clutch_state_flags, float frame_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -260,6 +356,14 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *m
     _mav_put_float(buf, 20, head2_temperature);
     _mav_put_float(buf, 24, turbine_pressure);
     _mav_put_float(buf, 28, fuel_pressure);
+    _mav_put_float(buf, 32, exhaust_temperature_1);
+    _mav_put_float(buf, 36, exhaust_temperature_2);
+    _mav_put_float(buf, 40, exhaust_temperature_3);
+    _mav_put_float(buf, 44, exhaust_temperature_4);
+    _mav_put_float(buf, 48, coolant_temperature);
+    _mav_put_float(buf, 52, frame_pressure);
+    _mav_put_uint8_t(buf, 56, turbine_state_flags);
+    _mav_put_uint8_t(buf, 57, clutch_state_flags);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, buf, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #else
@@ -272,6 +376,14 @@ static inline void mavlink_msg_uvr_engine_low_rate_send_buf(mavlink_message_t *m
     packet->head2_temperature = head2_temperature;
     packet->turbine_pressure = turbine_pressure;
     packet->fuel_pressure = fuel_pressure;
+    packet->exhaust_temperature_1 = exhaust_temperature_1;
+    packet->exhaust_temperature_2 = exhaust_temperature_2;
+    packet->exhaust_temperature_3 = exhaust_temperature_3;
+    packet->exhaust_temperature_4 = exhaust_temperature_4;
+    packet->coolant_temperature = coolant_temperature;
+    packet->frame_pressure = frame_pressure;
+    packet->turbine_state_flags = turbine_state_flags;
+    packet->clutch_state_flags = clutch_state_flags;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE, (const char *)packet, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_MIN_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_CRC);
 #endif
@@ -364,6 +476,86 @@ static inline float mavlink_msg_uvr_engine_low_rate_get_fuel_pressure(const mavl
 }
 
 /**
+ * @brief Get field exhaust_temperature_1 from uvr_engine_low_rate message
+ *
+ * @return [degC] Exhaust 1 Temperature.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_1(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  32);
+}
+
+/**
+ * @brief Get field exhaust_temperature_2 from uvr_engine_low_rate message
+ *
+ * @return [degC] Exhaust 2 Temperature.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_2(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  36);
+}
+
+/**
+ * @brief Get field exhaust_temperature_3 from uvr_engine_low_rate message
+ *
+ * @return [degC] Exhaust 3 Temperature.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_3(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  40);
+}
+
+/**
+ * @brief Get field exhaust_temperature_4 from uvr_engine_low_rate message
+ *
+ * @return [degC] Exhaust 4 Temperature.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_4(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  44);
+}
+
+/**
+ * @brief Get field coolant_temperature from uvr_engine_low_rate message
+ *
+ * @return [degC] Coolant Temperature.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_coolant_temperature(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  48);
+}
+
+/**
+ * @brief Get field turbine_state_flags from uvr_engine_low_rate message
+ *
+ * @return  Boost state flags: b0:CAUTION_ALARM; b1:WARNING_BOOST_ALARM
+ */
+static inline uint8_t mavlink_msg_uvr_engine_low_rate_get_turbine_state_flags(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  56);
+}
+
+/**
+ * @brief Get field clutch_state_flags from uvr_engine_low_rate message
+ *
+ * @return  Clutch state flags: b0:BOTTOM; b1:TOP
+ */
+static inline uint8_t mavlink_msg_uvr_engine_low_rate_get_clutch_state_flags(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  57);
+}
+
+/**
+ * @brief Get field frame_pressure from uvr_engine_low_rate message
+ *
+ * @return [bar] Frame pressure.
+ */
+static inline float mavlink_msg_uvr_engine_low_rate_get_frame_pressure(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  52);
+}
+
+/**
  * @brief Decode a uvr_engine_low_rate message into a struct
  *
  * @param msg The message to decode
@@ -380,6 +572,14 @@ static inline void mavlink_msg_uvr_engine_low_rate_decode(const mavlink_message_
     uvr_engine_low_rate->head2_temperature = mavlink_msg_uvr_engine_low_rate_get_head2_temperature(msg);
     uvr_engine_low_rate->turbine_pressure = mavlink_msg_uvr_engine_low_rate_get_turbine_pressure(msg);
     uvr_engine_low_rate->fuel_pressure = mavlink_msg_uvr_engine_low_rate_get_fuel_pressure(msg);
+    uvr_engine_low_rate->exhaust_temperature_1 = mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_1(msg);
+    uvr_engine_low_rate->exhaust_temperature_2 = mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_2(msg);
+    uvr_engine_low_rate->exhaust_temperature_3 = mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_3(msg);
+    uvr_engine_low_rate->exhaust_temperature_4 = mavlink_msg_uvr_engine_low_rate_get_exhaust_temperature_4(msg);
+    uvr_engine_low_rate->coolant_temperature = mavlink_msg_uvr_engine_low_rate_get_coolant_temperature(msg);
+    uvr_engine_low_rate->frame_pressure = mavlink_msg_uvr_engine_low_rate_get_frame_pressure(msg);
+    uvr_engine_low_rate->turbine_state_flags = mavlink_msg_uvr_engine_low_rate_get_turbine_state_flags(msg);
+    uvr_engine_low_rate->clutch_state_flags = mavlink_msg_uvr_engine_low_rate_get_clutch_state_flags(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN? msg->len : MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN;
         memset(uvr_engine_low_rate, 0, MAVLINK_MSG_ID_UVR_ENGINE_LOW_RATE_LEN);
