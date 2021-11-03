@@ -271,6 +271,10 @@
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
+      <entry value="45001" name="MAV_CMD_UVR_STARTER_ON" hasLocation="false" isDestination="false">
+          <description>Command to on the starter</description>
+          <param index="1">Empty</param>
+      </entry>
     </enum>
     <enum name="SCRIPTING_CMD">
       <entry value="0" name="SCRIPTING_CMD_REPL_START">
