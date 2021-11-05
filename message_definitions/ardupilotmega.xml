@@ -275,6 +275,18 @@
           <description>Command to on the starter</description>
           <param index="1">Empty</param>
       </entry>
+      <entry value="45002" name="MAV_CMD_UVR_CLUTCH_ON_OFF" hasLocation="false" isDestination="false">
+          <description>Command to on/off the clutch</description>
+          <param index="1" label="Clutch" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
+      </entry>
+      <entry value="45003" name="MAV_CMD_UVR_IGNITION_ON_OFF" hasLocation="false" isDestination="false">
+          <description>Command to on/off the ignition</description>
+          <param index="1" label="Ignition" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
+      </entry>
+      <entry value="45004" name="MAV_CMD_UVR_GASPUMP_ON_OFF" hasLocation="false" isDestination="false">
+          <description>Command to on/off the gasoline pump</description>
+          <param index="1" label="Gasoline pump" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
+      </entry>
     </enum>
     <enum name="SCRIPTING_CMD">
       <entry value="0" name="SCRIPTING_CMD_REPL_START">
