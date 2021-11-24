@@ -3707,7 +3707,7 @@ static void mavlink_test_uvr_engine_low_rate(uint8_t system_id, uint8_t componen
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_uvr_engine_low_rate_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,173,240
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,963500376,185,252
     };
     mavlink_uvr_engine_low_rate_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -3725,6 +3725,7 @@ static void mavlink_test_uvr_engine_low_rate(uint8_t system_id, uint8_t componen
         packet1.exhaust_temperature_4 = packet_in.exhaust_temperature_4;
         packet1.coolant_temperature = packet_in.coolant_temperature;
         packet1.frame_pressure = packet_in.frame_pressure;
+        packet1.equipment_state_flags = packet_in.equipment_state_flags;
         packet1.turbine_state_flags = packet_in.turbine_state_flags;
         packet1.clutch_state_flags = packet_in.clutch_state_flags;
         
@@ -3741,12 +3742,12 @@ static void mavlink_test_uvr_engine_low_rate(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, &msg , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure );
+    mavlink_msg_uvr_engine_low_rate_pack(system_id, component_id, &msg , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure , packet1.equipment_state_flags );
     mavlink_msg_uvr_engine_low_rate_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure );
+    mavlink_msg_uvr_engine_low_rate_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure , packet1.equipment_state_flags );
     mavlink_msg_uvr_engine_low_rate_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -3759,7 +3760,7 @@ static void mavlink_test_uvr_engine_low_rate(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_engine_low_rate_send(MAVLINK_COMM_1 , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure );
+    mavlink_msg_uvr_engine_low_rate_send(MAVLINK_COMM_1 , packet1.oil_temperature_1 , packet1.oil_pressure_1 , packet1.oil_temperature_2 , packet1.oil_pressure_2 , packet1.head1_temperature , packet1.head2_temperature , packet1.turbine_pressure , packet1.fuel_pressure , packet1.exhaust_temperature_1 , packet1.exhaust_temperature_2 , packet1.exhaust_temperature_3 , packet1.exhaust_temperature_4 , packet1.coolant_temperature , packet1.turbine_state_flags , packet1.clutch_state_flags , packet1.frame_pressure , packet1.equipment_state_flags );
     mavlink_msg_uvr_engine_low_rate_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

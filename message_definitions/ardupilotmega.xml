@@ -287,6 +287,10 @@
           <description>Command to on/off the gasoline pump</description>
           <param index="1" label="Gasoline pump" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
       </entry>
+      <entry value="45005" name="MAV_CMD_UVR_PARACHUTE_ON_OFF" hasLocation="false" isDestination="false">
+        <description>Command to start the UVR parachute</description>
+        <param index="1" label="UVR Parachute" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
+      </entry>
     </enum>
     <enum name="SCRIPTING_CMD">
       <entry value="0" name="SCRIPTING_CMD_REPL_START">
@@ -1689,6 +1693,7 @@
       <field type="uint8_t" name="clutch_state_flags">Clutch state flags: b0:BOTTOM; b1:TOP</field>
       <!--[TODO] move separate -->
       <field type="float" name="frame_pressure" units="bar">Frame pressure.</field>
+      <field type="uint32_t" name="equipment_state_flags">Equipment state flags </field>
     </message>
     <message id="15002" name="UVR_BATTERY">
       <description>UVR Battery status</description>
