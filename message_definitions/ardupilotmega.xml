@@ -1694,6 +1694,7 @@
       <!--[TODO] move separate -->
       <field type="float" name="frame_pressure" units="bar">Frame pressure.</field>
       <field type="uint32_t" name="equipment_state_flags">Equipment state flags </field>
+      <field type="uint16_t" name="rotor_sensors_state_flags">Rotor sensors state flags b0: sensor1 fail, b1: sensor2 fail, b2: sensor 3 fail</field>
     </message>
     <message id="15002" name="UVR_BATTERY">
       <description>UVR Battery status</description>
