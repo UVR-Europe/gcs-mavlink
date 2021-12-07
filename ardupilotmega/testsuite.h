@@ -3821,6 +3821,185 @@ static void mavlink_test_uvr_battery(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_uvr_main_board(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UVR_MAIN_BOARD >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uvr_main_board_t packet_in = {
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,963499128,113,180,247
+    };
+    mavlink_uvr_main_board_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.temperature_main_engine = packet_in.temperature_main_engine;
+        packet1.temperature_8v = packet_in.temperature_8v;
+        packet1.temperature_power_switch = packet_in.temperature_power_switch;
+        packet1.voltage_main_battery = packet_in.voltage_main_battery;
+        packet1.voltage_reserv_battery = packet_in.voltage_reserv_battery;
+        packet1.current_8v = packet_in.current_8v;
+        packet1.current_payload = packet_in.current_payload;
+        packet1.distance_sensor = packet_in.distance_sensor;
+        packet1.telemetry_engine = packet_in.telemetry_engine;
+        packet1.error_3v = packet_in.error_3v;
+        packet1.error_5v = packet_in.error_5v;
+        packet1.error_8v = packet_in.error_8v;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UVR_MAIN_BOARD_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UVR_MAIN_BOARD_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_main_board_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uvr_main_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_main_board_pack(system_id, component_id, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_main_board_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uvr_main_board_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_main_board_send(MAVLINK_COMM_1 , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
+static void mavlink_test_uvr_ers_board(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UVR_ERS_BOARD >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uvr_ers_board_t packet_in = {
+        17.0
+    };
+    mavlink_uvr_ers_board_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.pressure_barometric = packet_in.pressure_barometric;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UVR_ERS_BOARD_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UVR_ERS_BOARD_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_ers_board_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uvr_ers_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_ers_board_pack(system_id, component_id, &msg , packet1.pressure_barometric );
+    mavlink_msg_uvr_ers_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_ers_board_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.pressure_barometric );
+    mavlink_msg_uvr_ers_board_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uvr_ers_board_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_ers_board_send(MAVLINK_COMM_1 , packet1.pressure_barometric );
+    mavlink_msg_uvr_ers_board_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
+static void mavlink_test_uvr_esc_status(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UVR_ESC_STATUS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uvr_esc_status_t packet_in = {
+        963497464,45.0,73.0,101.0,963498296,65,132
+    };
+    mavlink_uvr_esc_status_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.error_count = packet_in.error_count;
+        packet1.voltage = packet_in.voltage;
+        packet1.current = packet_in.current;
+        packet1.temperature = packet_in.temperature;
+        packet1.rpm = packet_in.rpm;
+        packet1.power_rating_pct = packet_in.power_rating_pct;
+        packet1.esc_index = packet_in.esc_index;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UVR_ESC_STATUS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UVR_ESC_STATUS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_esc_status_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uvr_esc_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_esc_status_pack(system_id, component_id, &msg , packet1.error_count , packet1.voltage , packet1.current , packet1.temperature , packet1.rpm , packet1.power_rating_pct , packet1.esc_index );
+    mavlink_msg_uvr_esc_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_esc_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.error_count , packet1.voltage , packet1.current , packet1.temperature , packet1.rpm , packet1.power_rating_pct , packet1.esc_index );
+    mavlink_msg_uvr_esc_status_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uvr_esc_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_esc_status_send(MAVLINK_COMM_1 , packet1.error_count , packet1.voltage , packet1.current , packet1.temperature , packet1.rpm , packet1.power_rating_pct , packet1.esc_index );
+    mavlink_msg_uvr_esc_status_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_sensor_offsets(system_id, component_id, last_msg);
@@ -3887,6 +4066,9 @@ static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, 
     mavlink_test_osd_param_show_config_reply(system_id, component_id, last_msg);
     mavlink_test_uvr_engine_low_rate(system_id, component_id, last_msg);
     mavlink_test_uvr_battery(system_id, component_id, last_msg);
+    mavlink_test_uvr_main_board(system_id, component_id, last_msg);
+    mavlink_test_uvr_ers_board(system_id, component_id, last_msg);
+    mavlink_test_uvr_esc_status(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus
