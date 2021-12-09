@@ -1707,14 +1707,13 @@
       <field type="float" name="temperature_8v">8v power converter temperature</field>
       <field type="float" name="temperature_power_switch">MOSFET power switch temperature</field>
       <field type="float" name="voltage_main_battery">Main battery voltage</field>
-      <field type="float" name="voltage_reserv_battery">Reserve battery voltage</field>
+      <field type="float" name="voltage_reserve_battery">Reserve battery voltage</field>
       <field type="float" name="current_8v">Current sensor (8v power converter)</field>
-      <field type="float" name="current_payload">Current sensor (payload power converter)</field>
+      <field type="float" name="wattage_payload">Current sensor (payload power converter)</field>
+      <field type="float" name="cons_wh_payload">Current sensor (payload power converter)</field>
       <field type="float" name="distance_sensor">LIDAR distance sensor</field>
       <field type="uint32_t" name="telemetry_engine">telemetry from Engineelectric 1 controller</field>
-      <field type="int8_t" name="error_3v">3v power convertor error</field>
-      <field type="int8_t" name="error_5v">5v power convertor error</field>
-      <field type="int8_t" name="error_8v">8v power convertor error</field>
+      <field type="int8_t" name="error_converters">3v, 5v, 8v power convertors errors</field>
     </message>
     <message id="15004" name="UVR_ERS_BOARD">
       <description>UVR BAEK10 ERS board</description>

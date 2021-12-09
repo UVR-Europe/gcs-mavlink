@@ -3833,7 +3833,7 @@ static void mavlink_test_uvr_main_board(uint8_t system_id, uint8_t component_id,
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_uvr_main_board_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,963499128,113,180,247
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,963499336,125
     };
     mavlink_uvr_main_board_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -3841,14 +3841,13 @@ static void mavlink_test_uvr_main_board(uint8_t system_id, uint8_t component_id,
         packet1.temperature_8v = packet_in.temperature_8v;
         packet1.temperature_power_switch = packet_in.temperature_power_switch;
         packet1.voltage_main_battery = packet_in.voltage_main_battery;
-        packet1.voltage_reserv_battery = packet_in.voltage_reserv_battery;
+        packet1.voltage_reserve_battery = packet_in.voltage_reserve_battery;
         packet1.current_8v = packet_in.current_8v;
-        packet1.current_payload = packet_in.current_payload;
+        packet1.wattage_payload = packet_in.wattage_payload;
+        packet1.cons_wh_payload = packet_in.cons_wh_payload;
         packet1.distance_sensor = packet_in.distance_sensor;
         packet1.telemetry_engine = packet_in.telemetry_engine;
-        packet1.error_3v = packet_in.error_3v;
-        packet1.error_5v = packet_in.error_5v;
-        packet1.error_8v = packet_in.error_8v;
+        packet1.error_converters = packet_in.error_converters;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -3863,12 +3862,12 @@ static void mavlink_test_uvr_main_board(uint8_t system_id, uint8_t component_id,
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_main_board_pack(system_id, component_id, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_pack(system_id, component_id, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserve_battery , packet1.current_8v , packet1.wattage_payload , packet1.cons_wh_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_converters );
     mavlink_msg_uvr_main_board_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_main_board_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserve_battery , packet1.current_8v , packet1.wattage_payload , packet1.cons_wh_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_converters );
     mavlink_msg_uvr_main_board_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -3881,7 +3880,7 @@ static void mavlink_test_uvr_main_board(uint8_t system_id, uint8_t component_id,
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_main_board_send(MAVLINK_COMM_1 , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserv_battery , packet1.current_8v , packet1.current_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_3v , packet1.error_5v , packet1.error_8v );
+    mavlink_msg_uvr_main_board_send(MAVLINK_COMM_1 , packet1.temperature_main_engine , packet1.temperature_8v , packet1.temperature_power_switch , packet1.voltage_main_battery , packet1.voltage_reserve_battery , packet1.current_8v , packet1.wattage_payload , packet1.cons_wh_payload , packet1.distance_sensor , packet1.telemetry_engine , packet1.error_converters );
     mavlink_msg_uvr_main_board_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
