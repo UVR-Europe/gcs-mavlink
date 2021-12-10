@@ -15,7 +15,7 @@ typedef struct __mavlink_uvr_main_board_t {
  float cons_wh_payload; /*<  Current sensor (payload power converter)*/
  float distance_sensor; /*<  LIDAR distance sensor*/
  uint32_t telemetry_engine; /*<  telemetry from Engineelectric 1 controller*/
- int8_t error_converters; /*<  3v, 5v, 8v power convertors errors*/
+ uint8_t error_converters; /*<  3v, 5v, 8v power convertors errors*/
 } mavlink_uvr_main_board_t;
 
 #define MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN 41
@@ -23,8 +23,8 @@ typedef struct __mavlink_uvr_main_board_t {
 #define MAVLINK_MSG_ID_15003_LEN 41
 #define MAVLINK_MSG_ID_15003_MIN_LEN 41
 
-#define MAVLINK_MSG_ID_UVR_MAIN_BOARD_CRC 235
-#define MAVLINK_MSG_ID_15003_CRC 235
+#define MAVLINK_MSG_ID_UVR_MAIN_BOARD_CRC 162
+#define MAVLINK_MSG_ID_15003_CRC 162
 
 
 
@@ -43,7 +43,7 @@ typedef struct __mavlink_uvr_main_board_t {
          { "cons_wh_payload", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_main_board_t, cons_wh_payload) }, \
          { "distance_sensor", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_uvr_main_board_t, distance_sensor) }, \
          { "telemetry_engine", NULL, MAVLINK_TYPE_UINT32_T, 0, 36, offsetof(mavlink_uvr_main_board_t, telemetry_engine) }, \
-         { "error_converters", NULL, MAVLINK_TYPE_INT8_T, 0, 40, offsetof(mavlink_uvr_main_board_t, error_converters) }, \
+         { "error_converters", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_uvr_main_board_t, error_converters) }, \
          } \
 }
 #else
@@ -60,7 +60,7 @@ typedef struct __mavlink_uvr_main_board_t {
          { "cons_wh_payload", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_uvr_main_board_t, cons_wh_payload) }, \
          { "distance_sensor", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_uvr_main_board_t, distance_sensor) }, \
          { "telemetry_engine", NULL, MAVLINK_TYPE_UINT32_T, 0, 36, offsetof(mavlink_uvr_main_board_t, telemetry_engine) }, \
-         { "error_converters", NULL, MAVLINK_TYPE_INT8_T, 0, 40, offsetof(mavlink_uvr_main_board_t, error_converters) }, \
+         { "error_converters", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_uvr_main_board_t, error_converters) }, \
          } \
 }
 #endif
@@ -85,7 +85,7 @@ typedef struct __mavlink_uvr_main_board_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_main_board_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, int8_t error_converters)
+                               float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, uint8_t error_converters)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN];
@@ -99,7 +99,7 @@ static inline uint16_t mavlink_msg_uvr_main_board_pack(uint8_t system_id, uint8_
     _mav_put_float(buf, 28, cons_wh_payload);
     _mav_put_float(buf, 32, distance_sensor);
     _mav_put_uint32_t(buf, 36, telemetry_engine);
-    _mav_put_int8_t(buf, 40, error_converters);
+    _mav_put_uint8_t(buf, 40, error_converters);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN);
 #else
@@ -144,7 +144,7 @@ static inline uint16_t mavlink_msg_uvr_main_board_pack(uint8_t system_id, uint8_
  */
 static inline uint16_t mavlink_msg_uvr_main_board_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float temperature_main_engine,float temperature_8v,float temperature_power_switch,float voltage_main_battery,float voltage_reserve_battery,float current_8v,float wattage_payload,float cons_wh_payload,float distance_sensor,uint32_t telemetry_engine,int8_t error_converters)
+                                   float temperature_main_engine,float temperature_8v,float temperature_power_switch,float voltage_main_battery,float voltage_reserve_battery,float current_8v,float wattage_payload,float cons_wh_payload,float distance_sensor,uint32_t telemetry_engine,uint8_t error_converters)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN];
@@ -158,7 +158,7 @@ static inline uint16_t mavlink_msg_uvr_main_board_pack_chan(uint8_t system_id, u
     _mav_put_float(buf, 28, cons_wh_payload);
     _mav_put_float(buf, 32, distance_sensor);
     _mav_put_uint32_t(buf, 36, telemetry_engine);
-    _mav_put_int8_t(buf, 40, error_converters);
+    _mav_put_uint8_t(buf, 40, error_converters);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN);
 #else
@@ -227,7 +227,7 @@ static inline uint16_t mavlink_msg_uvr_main_board_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uvr_main_board_send(mavlink_channel_t chan, float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, int8_t error_converters)
+static inline void mavlink_msg_uvr_main_board_send(mavlink_channel_t chan, float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, uint8_t error_converters)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN];
@@ -241,7 +241,7 @@ static inline void mavlink_msg_uvr_main_board_send(mavlink_channel_t chan, float
     _mav_put_float(buf, 28, cons_wh_payload);
     _mav_put_float(buf, 32, distance_sensor);
     _mav_put_uint32_t(buf, 36, telemetry_engine);
-    _mav_put_int8_t(buf, 40, error_converters);
+    _mav_put_uint8_t(buf, 40, error_converters);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_MAIN_BOARD, buf, MAVLINK_MSG_ID_UVR_MAIN_BOARD_MIN_LEN, MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN, MAVLINK_MSG_ID_UVR_MAIN_BOARD_CRC);
 #else
@@ -284,7 +284,7 @@ static inline void mavlink_msg_uvr_main_board_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uvr_main_board_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, int8_t error_converters)
+static inline void mavlink_msg_uvr_main_board_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float temperature_main_engine, float temperature_8v, float temperature_power_switch, float voltage_main_battery, float voltage_reserve_battery, float current_8v, float wattage_payload, float cons_wh_payload, float distance_sensor, uint32_t telemetry_engine, uint8_t error_converters)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -298,7 +298,7 @@ static inline void mavlink_msg_uvr_main_board_send_buf(mavlink_message_t *msgbuf
     _mav_put_float(buf, 28, cons_wh_payload);
     _mav_put_float(buf, 32, distance_sensor);
     _mav_put_uint32_t(buf, 36, telemetry_engine);
-    _mav_put_int8_t(buf, 40, error_converters);
+    _mav_put_uint8_t(buf, 40, error_converters);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_MAIN_BOARD, buf, MAVLINK_MSG_ID_UVR_MAIN_BOARD_MIN_LEN, MAVLINK_MSG_ID_UVR_MAIN_BOARD_LEN, MAVLINK_MSG_ID_UVR_MAIN_BOARD_CRC);
 #else
@@ -430,9 +430,9 @@ static inline uint32_t mavlink_msg_uvr_main_board_get_telemetry_engine(const mav
  *
  * @return  3v, 5v, 8v power convertors errors
  */
-static inline int8_t mavlink_msg_uvr_main_board_get_error_converters(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_uvr_main_board_get_error_converters(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_int8_t(msg,  40);
+    return _MAV_RETURN_uint8_t(msg,  40);
 }
 
 /**

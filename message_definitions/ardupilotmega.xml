@@ -1713,7 +1713,7 @@
       <field type="float" name="cons_wh_payload">Current sensor (payload power converter)</field>
       <field type="float" name="distance_sensor">LIDAR distance sensor</field>
       <field type="uint32_t" name="telemetry_engine">telemetry from Engineelectric 1 controller</field>
-      <field type="int8_t" name="error_converters">3v, 5v, 8v power convertors errors</field>
+      <field type="uint8_t" name="error_converters">3v, 5v, 8v power convertors errors</field>
     </message>
     <message id="15004" name="UVR_ERS_BOARD">
       <description>UVR BAEK10 ERS board</description>
