@@ -273,7 +273,8 @@ typedef enum MAV_CMD
    MAV_CMD_UVR_IGNITION_ON_OFF=45003, /* Command to on/off the ignition |0: nothing, 1: on, 2: off| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
    MAV_CMD_UVR_GASPUMP_ON_OFF=45004, /* Command to on/off the gasoline pump |0: nothing, 1: on, 2: off| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
    MAV_CMD_UVR_PARACHUTE_ON_OFF=45005, /* Command to start the UVR parachute |0: nothing, 1: on, 2: off| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
-   MAV_CMD_ENUM_END=45006, /*  | */
+   MAV_CMD_UVR_PAYLOAD_ON_OFF=45006, /* Command to on/off payload power |0: nothing, 1: on, 2: off| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
+   MAV_CMD_ENUM_END=45007, /*  | */
 } MAV_CMD;
 #endif
 
