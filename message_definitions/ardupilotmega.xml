@@ -295,6 +295,11 @@
         <description>Command to on/off payload power</description>
         <param index="1" label="UVR Payload" minValue="0" maxValue="2" increment="1">0: nothing, 1: on, 2: off</param>
       </entry>
+      <entry value="45007" name="MAV_CMD_UVR_TIMER_WRITE" hasLocation="false" isDestination="false">
+        <description>Command to on/off payload power</description>
+        <param index="1" label="UVR Timer" minValue="0" maxValue="15" increment="1">Timer number</param>
+        <param index="2" label="UVR Timer last time" minValue="0" maxValue="600" increment="1">Timer last time</param>
+      </entry>
     </enum>
     <enum name="SCRIPTING_CMD">
       <entry value="0" name="SCRIPTING_CMD_REPL_START">
