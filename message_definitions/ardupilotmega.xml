@@ -1738,5 +1738,12 @@
       <field type="uint8_t" name="power_rating_pct">Instant demand factor in percent (percent of maximum power)</field>
       <field type="uint8_t" name="esc_index">Index</field>
     </message>
+    <message id="15006" name="UVR_PID_GOV">
+       <description>UVR_PID_GOV</description>
+       <field type="float" name="gov_pid_out">Governor Pid Output</field>
+       <field type="float" name="gov_pid_P_out">Governor Pid P Out</field>
+       <field type="float" name="gov_pid_I_out">Governor Pid I Out</field>
+       <field type="float" name="gov_pid_D_out">Governor Pid D Out</field>
+    </message>
   </messages>
 </mavlink>
