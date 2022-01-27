@@ -1745,5 +1745,10 @@
        <field type="float" name="gov_pid_I_out">Governor Pid I Out</field>
        <field type="float" name="gov_pid_D_out">Governor Pid D Out</field>
     </message>
+    <message id="15007" name="UVR_CAN_STATUS">
+      <description>UVR CAN STATUS</description>
+      <field type="uint64_t" name="uavcan_Iface0_errors">UAVCAN Interface 0 errors</field>
+      <field type="uint64_t" name="uavcan_Iface1_errors">UAVCAN Interface 1 errors</field>
+    </message>
   </messages>
 </mavlink>
