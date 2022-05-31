@@ -1762,7 +1762,8 @@
     </message>
     <message id="16000" name="UVR_GENERIC_DATA">
       <description>Use it to send any arbitrary named data (utility) without creating more message definitions.</description>
-      <field type="char[4]" name="id" >id of data</field>
+      <field type="char[4]" name="id">id of data</field>
+      <field type="uint8_t" name="length">length of data</field>
       <field type="uint8_t[4]" name="data"> data itself</field>
     </message>
   </messages>

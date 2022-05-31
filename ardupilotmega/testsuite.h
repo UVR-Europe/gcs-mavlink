@@ -4183,10 +4183,11 @@ static void mavlink_test_uvr_generic_data(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_uvr_generic_data_t packet_in = {
-        "ABC",{ 17, 18, 19, 20 }
+        "ABC",17,{ 84, 85, 86, 87 }
     };
     mavlink_uvr_generic_data_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        packet1.length = packet_in.length;
         
         mav_array_memcpy(packet1.id, packet_in.id, sizeof(char)*4);
         mav_array_memcpy(packet1.data, packet_in.data, sizeof(uint8_t)*4);
@@ -4203,12 +4204,12 @@ static void mavlink_test_uvr_generic_data(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_generic_data_pack(system_id, component_id, &msg , packet1.id , packet1.data );
+    mavlink_msg_uvr_generic_data_pack(system_id, component_id, &msg , packet1.id , packet1.length , packet1.data );
     mavlink_msg_uvr_generic_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_generic_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.data );
+    mavlink_msg_uvr_generic_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.length , packet1.data );
     mavlink_msg_uvr_generic_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -4221,7 +4222,7 @@ static void mavlink_test_uvr_generic_data(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uvr_generic_data_send(MAVLINK_COMM_1 , packet1.id , packet1.data );
+    mavlink_msg_uvr_generic_data_send(MAVLINK_COMM_1 , packet1.id , packet1.length , packet1.data );
     mavlink_msg_uvr_generic_data_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

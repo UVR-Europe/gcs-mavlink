@@ -6,16 +6,17 @@
 
 typedef struct __mavlink_uvr_generic_data_t {
  char id[4]; /*<  id of data*/
+ uint8_t length; /*<  length of data*/
  uint8_t data[4]; /*<   data itself*/
 } mavlink_uvr_generic_data_t;
 
-#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN 8
-#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN 8
-#define MAVLINK_MSG_ID_16000_LEN 8
-#define MAVLINK_MSG_ID_16000_MIN_LEN 8
+#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN 9
+#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN 9
+#define MAVLINK_MSG_ID_16000_LEN 9
+#define MAVLINK_MSG_ID_16000_MIN_LEN 9
 
-#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC 176
-#define MAVLINK_MSG_ID_16000_CRC 176
+#define MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC 161
+#define MAVLINK_MSG_ID_16000_CRC 161
 
 #define MAVLINK_MSG_UVR_GENERIC_DATA_FIELD_ID_LEN 4
 #define MAVLINK_MSG_UVR_GENERIC_DATA_FIELD_DATA_LEN 4
@@ -24,17 +25,19 @@ typedef struct __mavlink_uvr_generic_data_t {
 #define MAVLINK_MESSAGE_INFO_UVR_GENERIC_DATA { \
     16000, \
     "UVR_GENERIC_DATA", \
-    2, \
+    3, \
     {  { "id", NULL, MAVLINK_TYPE_CHAR, 4, 0, offsetof(mavlink_uvr_generic_data_t, id) }, \
-         { "data", NULL, MAVLINK_TYPE_UINT8_T, 4, 4, offsetof(mavlink_uvr_generic_data_t, data) }, \
+         { "length", NULL, MAVLINK_TYPE_UINT8_T, 0, 4, offsetof(mavlink_uvr_generic_data_t, length) }, \
+         { "data", NULL, MAVLINK_TYPE_UINT8_T, 4, 5, offsetof(mavlink_uvr_generic_data_t, data) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_UVR_GENERIC_DATA { \
     "UVR_GENERIC_DATA", \
-    2, \
+    3, \
     {  { "id", NULL, MAVLINK_TYPE_CHAR, 4, 0, offsetof(mavlink_uvr_generic_data_t, id) }, \
-         { "data", NULL, MAVLINK_TYPE_UINT8_T, 4, 4, offsetof(mavlink_uvr_generic_data_t, data) }, \
+         { "length", NULL, MAVLINK_TYPE_UINT8_T, 0, 4, offsetof(mavlink_uvr_generic_data_t, length) }, \
+         { "data", NULL, MAVLINK_TYPE_UINT8_T, 4, 5, offsetof(mavlink_uvr_generic_data_t, data) }, \
          } \
 }
 #endif
@@ -46,21 +49,22 @@ typedef struct __mavlink_uvr_generic_data_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param id  id of data
+ * @param length  length of data
  * @param data   data itself
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_generic_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const char *id, const uint8_t *data)
+                               const char *id, uint8_t length, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN];
-
+    _mav_put_uint8_t(buf, 4, length);
     _mav_put_char_array(buf, 0, id, 4);
-    _mav_put_uint8_t_array(buf, 4, data, 4);
+    _mav_put_uint8_t_array(buf, 5, data, 4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN);
 #else
     mavlink_uvr_generic_data_t packet;
-
+    packet.length = length;
     mav_array_memcpy(packet.id, id, sizeof(char)*4);
     mav_array_memcpy(packet.data, data, sizeof(uint8_t)*4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN);
@@ -77,22 +81,23 @@ static inline uint16_t mavlink_msg_uvr_generic_data_pack(uint8_t system_id, uint
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param id  id of data
+ * @param length  length of data
  * @param data   data itself
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uvr_generic_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   const char *id,const uint8_t *data)
+                                   const char *id,uint8_t length,const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN];
-
+    _mav_put_uint8_t(buf, 4, length);
     _mav_put_char_array(buf, 0, id, 4);
-    _mav_put_uint8_t_array(buf, 4, data, 4);
+    _mav_put_uint8_t_array(buf, 5, data, 4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN);
 #else
     mavlink_uvr_generic_data_t packet;
-
+    packet.length = length;
     mav_array_memcpy(packet.id, id, sizeof(char)*4);
     mav_array_memcpy(packet.data, data, sizeof(uint8_t)*4);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN);
@@ -112,7 +117,7 @@ static inline uint16_t mavlink_msg_uvr_generic_data_pack_chan(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_uvr_generic_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uvr_generic_data_t* uvr_generic_data)
 {
-    return mavlink_msg_uvr_generic_data_pack(system_id, component_id, msg, uvr_generic_data->id, uvr_generic_data->data);
+    return mavlink_msg_uvr_generic_data_pack(system_id, component_id, msg, uvr_generic_data->id, uvr_generic_data->length, uvr_generic_data->data);
 }
 
 /**
@@ -126,7 +131,7 @@ static inline uint16_t mavlink_msg_uvr_generic_data_encode(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_uvr_generic_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uvr_generic_data_t* uvr_generic_data)
 {
-    return mavlink_msg_uvr_generic_data_pack_chan(system_id, component_id, chan, msg, uvr_generic_data->id, uvr_generic_data->data);
+    return mavlink_msg_uvr_generic_data_pack_chan(system_id, component_id, chan, msg, uvr_generic_data->id, uvr_generic_data->length, uvr_generic_data->data);
 }
 
 /**
@@ -134,21 +139,22 @@ static inline uint16_t mavlink_msg_uvr_generic_data_encode_chan(uint8_t system_i
  * @param chan MAVLink channel to send the message
  *
  * @param id  id of data
+ * @param length  length of data
  * @param data   data itself
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uvr_generic_data_send(mavlink_channel_t chan, const char *id, const uint8_t *data)
+static inline void mavlink_msg_uvr_generic_data_send(mavlink_channel_t chan, const char *id, uint8_t length, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN];
-
+    _mav_put_uint8_t(buf, 4, length);
     _mav_put_char_array(buf, 0, id, 4);
-    _mav_put_uint8_t_array(buf, 4, data, 4);
+    _mav_put_uint8_t_array(buf, 5, data, 4);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_GENERIC_DATA, buf, MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC);
 #else
     mavlink_uvr_generic_data_t packet;
-
+    packet.length = length;
     mav_array_memcpy(packet.id, id, sizeof(char)*4);
     mav_array_memcpy(packet.data, data, sizeof(uint8_t)*4);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_GENERIC_DATA, (const char *)&packet, MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC);
@@ -163,7 +169,7 @@ static inline void mavlink_msg_uvr_generic_data_send(mavlink_channel_t chan, con
 static inline void mavlink_msg_uvr_generic_data_send_struct(mavlink_channel_t chan, const mavlink_uvr_generic_data_t* uvr_generic_data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uvr_generic_data_send(chan, uvr_generic_data->id, uvr_generic_data->data);
+    mavlink_msg_uvr_generic_data_send(chan, uvr_generic_data->id, uvr_generic_data->length, uvr_generic_data->data);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_GENERIC_DATA, (const char *)uvr_generic_data, MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC);
 #endif
@@ -177,17 +183,17 @@ static inline void mavlink_msg_uvr_generic_data_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uvr_generic_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const char *id, const uint8_t *data)
+static inline void mavlink_msg_uvr_generic_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const char *id, uint8_t length, const uint8_t *data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-
+    _mav_put_uint8_t(buf, 4, length);
     _mav_put_char_array(buf, 0, id, 4);
-    _mav_put_uint8_t_array(buf, 4, data, 4);
+    _mav_put_uint8_t_array(buf, 5, data, 4);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_GENERIC_DATA, buf, MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC);
 #else
     mavlink_uvr_generic_data_t *packet = (mavlink_uvr_generic_data_t *)msgbuf;
-
+    packet->length = length;
     mav_array_memcpy(packet->id, id, sizeof(char)*4);
     mav_array_memcpy(packet->data, data, sizeof(uint8_t)*4);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UVR_GENERIC_DATA, (const char *)packet, MAVLINK_MSG_ID_UVR_GENERIC_DATA_MIN_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN, MAVLINK_MSG_ID_UVR_GENERIC_DATA_CRC);
@@ -211,13 +217,23 @@ static inline uint16_t mavlink_msg_uvr_generic_data_get_id(const mavlink_message
 }
 
 /**
+ * @brief Get field length from uvr_generic_data message
+ *
+ * @return  length of data
+ */
+static inline uint8_t mavlink_msg_uvr_generic_data_get_length(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  4);
+}
+
+/**
  * @brief Get field data from uvr_generic_data message
  *
  * @return   data itself
  */
 static inline uint16_t mavlink_msg_uvr_generic_data_get_data(const mavlink_message_t* msg, uint8_t *data)
 {
-    return _MAV_RETURN_uint8_t_array(msg, data, 4,  4);
+    return _MAV_RETURN_uint8_t_array(msg, data, 4,  5);
 }
 
 /**
@@ -230,6 +246,7 @@ static inline void mavlink_msg_uvr_generic_data_decode(const mavlink_message_t* 
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_uvr_generic_data_get_id(msg, uvr_generic_data->id);
+    uvr_generic_data->length = mavlink_msg_uvr_generic_data_get_length(msg);
     mavlink_msg_uvr_generic_data_get_data(msg, uvr_generic_data->data);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN? msg->len : MAVLINK_MSG_ID_UVR_GENERIC_DATA_LEN;
