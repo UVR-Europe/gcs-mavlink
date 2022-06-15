@@ -271,6 +271,7 @@
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
+<!--UVR start-->      
       <entry value="45001" name="MAV_CMD_UVR_STARTER_ON" hasLocation="false" isDestination="false">
           <description>Command to on the starter</description>
           <param index="1">Empty</param>
@@ -300,6 +301,12 @@
         <param index="1" label="UVR Timer" minValue="0" maxValue="15" increment="1">Timer number</param>
         <param index="2" label="UVR Timer last time" minValue="0" maxValue="600" increment="1">Timer last time</param>
       </entry>
+      <entry value="45008" name="MAV_CMD_UVR_SET_PWM_OUT" hasLocation="false" isDestination="false">
+        <description>Sets control over SERVOx PWM output (rc_gcs_1(2) function have to be set for SERVOx)</description>
+        <param index="1" label="RC_GCS index" minValue="1" maxValue="2" increment="1">Function index</param>
+        <param index="2" label="PWM value" minValue="0" maxValue="1000" increment="1">PWM value in case of gcs source (see RC_GCSx_PWM_SRC)</param>
+      </entry>
+<!--UVR end-->      
     </enum>
     <enum name="SCRIPTING_CMD">
       <entry value="0" name="SCRIPTING_CMD_REPL_START">
