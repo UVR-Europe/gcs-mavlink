@@ -4582,6 +4582,203 @@ static void mavlink_test_uvr_generic_data(uint8_t system_id, uint8_t component_i
 #endif
 }
 
+static void mavlink_test_rotor_sensors(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_ROTOR_SENSORS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_rotor_sensors_t packet_in = {
+        17235,17339,17443,151,218,29,96
+    };
+    mavlink_rotor_sensors_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.pressure_oil = packet_in.pressure_oil;
+        packet1.rpm = packet_in.rpm;
+        packet1.flags = packet_in.flags;
+        packet1.id = packet_in.id;
+        packet1.temp_oil = packet_in.temp_oil;
+        packet1.pressure_hydro = packet_in.pressure_hydro;
+        packet1.shavings_oil = packet_in.shavings_oil;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_ROTOR_SENSORS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_ROTOR_SENSORS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_rotor_sensors_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_rotor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_rotor_sensors_pack(system_id, component_id, &msg , packet1.id , packet1.temp_oil , packet1.pressure_oil , packet1.pressure_hydro , packet1.shavings_oil , packet1.rpm , packet1.flags );
+    mavlink_msg_rotor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_rotor_sensors_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.temp_oil , packet1.pressure_oil , packet1.pressure_hydro , packet1.shavings_oil , packet1.rpm , packet1.flags );
+    mavlink_msg_rotor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_rotor_sensors_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_rotor_sensors_send(MAVLINK_COMM_1 , packet1.id , packet1.temp_oil , packet1.pressure_oil , packet1.pressure_hydro , packet1.shavings_oil , packet1.rpm , packet1.flags );
+    mavlink_msg_rotor_sensors_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("ROTOR_SENSORS") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_ROTOR_SENSORS) != NULL);
+#endif
+}
+
+static void mavlink_test_electric_motor_sensors(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_ELECTRIC_MOTOR_SENSORS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_electric_motor_sensors_t packet_in = {
+        963497464,17443,17547,17651,17755,41,108
+    };
+    mavlink_electric_motor_sensors_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.cons_wh = packet_in.cons_wh;
+        packet1.current = packet_in.current;
+        packet1.temperature = packet_in.temperature;
+        packet1.rpm = packet_in.rpm;
+        packet1.flags = packet_in.flags;
+        packet1.id = packet_in.id;
+        packet1.voltage = packet_in.voltage;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_ELECTRIC_MOTOR_SENSORS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_ELECTRIC_MOTOR_SENSORS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_electric_motor_sensors_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_electric_motor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_electric_motor_sensors_pack(system_id, component_id, &msg , packet1.id , packet1.voltage , packet1.current , packet1.temperature , packet1.cons_wh , packet1.rpm , packet1.flags );
+    mavlink_msg_electric_motor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_electric_motor_sensors_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.voltage , packet1.current , packet1.temperature , packet1.cons_wh , packet1.rpm , packet1.flags );
+    mavlink_msg_electric_motor_sensors_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_electric_motor_sensors_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_electric_motor_sensors_send(MAVLINK_COMM_1 , packet1.id , packet1.voltage , packet1.current , packet1.temperature , packet1.cons_wh , packet1.rpm , packet1.flags );
+    mavlink_msg_electric_motor_sensors_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("ELECTRIC_MOTOR_SENSORS") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_ELECTRIC_MOTOR_SENSORS) != NULL);
+#endif
+}
+
+static void mavlink_test_power_board_info(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_POWER_BOARD_INFO >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_power_board_info_t packet_in = {
+        17.0,45.0,17651,17755,17859,17963,18067,18171,65
+    };
+    mavlink_power_board_info_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.wattage = packet_in.wattage;
+        packet1.cons_wh_payload = packet_in.cons_wh_payload;
+        packet1.temp_mosfet = packet_in.temp_mosfet;
+        packet1.res_voltage = packet_in.res_voltage;
+        packet1.current8v = packet_in.current8v;
+        packet1.temp8v = packet_in.temp8v;
+        packet1.cons_wh8v = packet_in.cons_wh8v;
+        packet1.temp2 = packet_in.temp2;
+        packet1.dc_status = packet_in.dc_status;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_POWER_BOARD_INFO_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_POWER_BOARD_INFO_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_power_board_info_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_power_board_info_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_power_board_info_pack(system_id, component_id, &msg , packet1.dc_status , packet1.temp_mosfet , packet1.res_voltage , packet1.current8v , packet1.temp8v , packet1.cons_wh8v , packet1.temp2 , packet1.wattage , packet1.cons_wh_payload );
+    mavlink_msg_power_board_info_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_power_board_info_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.dc_status , packet1.temp_mosfet , packet1.res_voltage , packet1.current8v , packet1.temp8v , packet1.cons_wh8v , packet1.temp2 , packet1.wattage , packet1.cons_wh_payload );
+    mavlink_msg_power_board_info_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_power_board_info_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_power_board_info_send(MAVLINK_COMM_1 , packet1.dc_status , packet1.temp_mosfet , packet1.res_voltage , packet1.current8v , packet1.temp8v , packet1.cons_wh8v , packet1.temp2 , packet1.wattage , packet1.cons_wh_payload );
+    mavlink_msg_power_board_info_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("POWER_BOARD_INFO") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_POWER_BOARD_INFO) != NULL);
+#endif
+}
+
 static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_sensor_offsets(system_id, component_id, last_msg);
@@ -4655,6 +4852,9 @@ static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, 
     mavlink_test_uvr_can_status(system_id, component_id, last_msg);
     mavlink_test_uvr_pilot_id(system_id, component_id, last_msg);
     mavlink_test_uvr_generic_data(system_id, component_id, last_msg);
+    mavlink_test_rotor_sensors(system_id, component_id, last_msg);
+    mavlink_test_electric_motor_sensors(system_id, component_id, last_msg);
+    mavlink_test_power_board_info(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus

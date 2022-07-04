@@ -1773,5 +1773,37 @@
       <field type="uint8_t" name="length">length of data</field>
       <field type="uint8_t[4]" name="data"> data itself</field>
     </message>
+        <message id="20502" name="ROTOR_SENSORS">
+      <description>AOrion ROTOR_SENSORS</description>
+      <field type="uint8_t" name="id">id</field>
+      <field type="int8_t" name="temp_oil">temp_oil</field>
+      <field type="uint16_t" name="pressure_oil">pressure_oil</field>
+      <field type="uint8_t" name="pressure_hydro">pressure_hydro</field>
+      <field type="uint8_t" name="shavings_oil">shavings_oil</field>
+      <field type="uint16_t" name="rpm">rpm</field>
+      <field type="uint16_t" name="flags">flags</field>
+    </message>
+    <message id="20503" name="ELECTRIC_MOTOR_SENSORS">
+      <description>AOrion ELECTRIC_MOTOR_SENSORS</description>
+      <field type="uint8_t" name="id">id</field>
+      <field type="int8_t" name="voltage">voltage</field>
+      <field type="uint16_t" name="current">current</field>
+      <field type="int16_t" name="temperature">temperature</field>
+      <field type="uint32_t" name="cons_wh">cons_wh</field>
+      <field type="uint16_t" name="rpm">rpm</field>
+      <field type="uint16_t" name="flags">flags</field>
+    </message>
+    <message id="20504" name="POWER_BOARD_INFO">
+      <description>AOrion POWER_BOARD_INFO</description>
+      <field type="uint8_t" name="dc_status">dc_status</field>
+      <field type="int16_t" name="temp_mosfet">temp_mosfet</field>
+      <field type="uint16_t" name="res_voltage">res_voltage</field>
+      <field type="uint16_t" name="current8v">current8v</field>
+      <field type="int16_t" name="temp8v">temp8v</field>
+      <field type="uint16_t" name="cons_wh8v">cons_wh8v</field>
+      <field type="int16_t" name="temp2">temp2</field>
+      <field type="float" name="wattage">wattage</field>
+      <field type="float" name="cons_wh_payload">cons_wh_payload</field>
+    </message>
   </messages>
 </mavlink>
