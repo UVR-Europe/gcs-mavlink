@@ -1758,10 +1758,23 @@
        <field type="float" name="raw_error">Governor Pid Error without filtering</field>
        <field type="int8_t" name="governor_active">Governor Activity sign</field>
     </message>
-    <message id="15007" name="UVR_CAN_STATUS">
-      <description>UVR CAN STATUS</description>
-      <field type="uint64_t" name="uavcan_Iface0_errors">UAVCAN Interface 0 errors</field>
-      <field type="uint64_t" name="uavcan_Iface1_errors">UAVCAN Interface 1 errors</field>
+    <message id="15007" name="UH_BEYOND_M_SENSORS">
+       <description>Sensors of Beyond_M</description>
+       <field type="float" name="temperature_EG1">Exhaust gas temperature 1</field>
+       <field type="float" name="temperature_EG2">Exhaust gas temperature 2</field>
+       <field type="float" name="temperature_EG3">Exhaust gas temperature 3</field>
+       <field type="float" name="temperature_EG4">Exhaust gas temperature 4</field>
+       <field type="float" name="temperature_CHT1">Cylinder head temperature 1</field>
+       <field type="float" name="temperature_CHT2">Cylinder head temperature 2</field>
+       <field type="float" name="temperature_oil">Oil temperature</field>
+       <field type="float" name="temperature_coolant">Coolant temperature</field>
+       <field type="float" name="temperature_gearbox">Gearbox temperature</field>
+       <field type="float" name="pressure_fuel">Fuel pressure</field>
+       <field type="float" name="pressure_oil">Oil pressure</field>
+       <field type="float" name="pressure_manifold">Manifold pressure</field>
+       <field type="float" name="level_fuel">Fuel level</field>
+       <field type="float" name="battery_12v">Battery voltage (12V)</field>
+       <field type="uint16_t" name="status_bits">Equipment status bits. b0=fuel pressure</field>
     </message>
     <message id="15008" name="UVR_PILOT_ID">
       <description>UVR PILOT ID</description>
