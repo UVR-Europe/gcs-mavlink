@@ -4595,6 +4595,256 @@ static void mavlink_test_uvr_generic_data(uint8_t system_id, uint8_t component_i
 #endif
 }
 
+static void mavlink_test_uh_easa_pilot_request(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UH_EASA_PILOT_REQUEST >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uh_easa_pilot_request_t packet_in = {
+        963497464,17,84,"GHIJKLMNOPQRSTUVWX"
+    };
+    mavlink_uh_easa_pilot_request_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.request_id = packet_in.request_id;
+        packet1.cmd = packet_in.cmd;
+        packet1.pilot_index = packet_in.pilot_index;
+        
+        mav_array_memcpy(packet1.pilot_data, packet_in.pilot_data, sizeof(char)*19);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UH_EASA_PILOT_REQUEST_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UH_EASA_PILOT_REQUEST_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_request_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uh_easa_pilot_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_request_pack(system_id, component_id, &msg , packet1.request_id , packet1.cmd , packet1.pilot_index , packet1.pilot_data );
+    mavlink_msg_uh_easa_pilot_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_request_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.request_id , packet1.cmd , packet1.pilot_index , packet1.pilot_data );
+    mavlink_msg_uh_easa_pilot_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uh_easa_pilot_request_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_request_send(MAVLINK_COMM_1 , packet1.request_id , packet1.cmd , packet1.pilot_index , packet1.pilot_data );
+    mavlink_msg_uh_easa_pilot_request_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("UH_EASA_PILOT_REQUEST") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_UH_EASA_PILOT_REQUEST) != NULL);
+#endif
+}
+
+static void mavlink_test_uh_easa_pilot_response(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UH_EASA_PILOT_RESPONSE >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uh_easa_pilot_response_t packet_in = {
+        963497464,17,84,"GHIJKLMNOPQRSTUVWX","ZABCDEFGHIJKLMNOPQ","STUVWXYZABCDEFGHIJ","LMNOPQRSTUVWXYZABC","EFGHIJKLMNOPQRSTUV"
+    };
+    mavlink_uh_easa_pilot_response_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.request_id = packet_in.request_id;
+        packet1.status = packet_in.status;
+        packet1.current_pilot_index = packet_in.current_pilot_index;
+        
+        mav_array_memcpy(packet1.pilot1, packet_in.pilot1, sizeof(char)*19);
+        mav_array_memcpy(packet1.pilot2, packet_in.pilot2, sizeof(char)*19);
+        mav_array_memcpy(packet1.pilot3, packet_in.pilot3, sizeof(char)*19);
+        mav_array_memcpy(packet1.pilot4, packet_in.pilot4, sizeof(char)*19);
+        mav_array_memcpy(packet1.pilot5, packet_in.pilot5, sizeof(char)*19);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UH_EASA_PILOT_RESPONSE_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UH_EASA_PILOT_RESPONSE_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_response_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uh_easa_pilot_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_response_pack(system_id, component_id, &msg , packet1.request_id , packet1.status , packet1.current_pilot_index , packet1.pilot1 , packet1.pilot2 , packet1.pilot3 , packet1.pilot4 , packet1.pilot5 );
+    mavlink_msg_uh_easa_pilot_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_response_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.request_id , packet1.status , packet1.current_pilot_index , packet1.pilot1 , packet1.pilot2 , packet1.pilot3 , packet1.pilot4 , packet1.pilot5 );
+    mavlink_msg_uh_easa_pilot_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uh_easa_pilot_response_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_pilot_response_send(MAVLINK_COMM_1 , packet1.request_id , packet1.status , packet1.current_pilot_index , packet1.pilot1 , packet1.pilot2 , packet1.pilot3 , packet1.pilot4 , packet1.pilot5 );
+    mavlink_msg_uh_easa_pilot_response_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("UH_EASA_PILOT_RESPONSE") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_UH_EASA_PILOT_RESPONSE) != NULL);
+#endif
+}
+
+static void mavlink_test_uh_easa_uas_sn_request(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UH_EASA_UAS_SN_REQUEST >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uh_easa_uas_sn_request_t packet_in = {
+        963497464,17,"FGHIJKLMNOPQRSTUVWX"
+    };
+    mavlink_uh_easa_uas_sn_request_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.request_id = packet_in.request_id;
+        packet1.cmd = packet_in.cmd;
+        
+        mav_array_memcpy(packet1.serial_number, packet_in.serial_number, sizeof(char)*20);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UH_EASA_UAS_SN_REQUEST_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UH_EASA_UAS_SN_REQUEST_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_request_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uh_easa_uas_sn_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_request_pack(system_id, component_id, &msg , packet1.request_id , packet1.cmd , packet1.serial_number );
+    mavlink_msg_uh_easa_uas_sn_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_request_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.request_id , packet1.cmd , packet1.serial_number );
+    mavlink_msg_uh_easa_uas_sn_request_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uh_easa_uas_sn_request_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_request_send(MAVLINK_COMM_1 , packet1.request_id , packet1.cmd , packet1.serial_number );
+    mavlink_msg_uh_easa_uas_sn_request_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("UH_EASA_UAS_SN_REQUEST") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_UH_EASA_UAS_SN_REQUEST) != NULL);
+#endif
+}
+
+static void mavlink_test_uh_easa_uas_sn_response(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UH_EASA_UAS_SN_RESPONSE >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uh_easa_uas_sn_response_t packet_in = {
+        963497464,17,"FGHIJKLMNOPQRSTUVWX"
+    };
+    mavlink_uh_easa_uas_sn_response_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.request_id = packet_in.request_id;
+        packet1.status = packet_in.status;
+        
+        mav_array_memcpy(packet1.current_serial_number, packet_in.current_serial_number, sizeof(char)*20);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UH_EASA_UAS_SN_RESPONSE_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UH_EASA_UAS_SN_RESPONSE_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_response_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uh_easa_uas_sn_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_response_pack(system_id, component_id, &msg , packet1.request_id , packet1.status , packet1.current_serial_number );
+    mavlink_msg_uh_easa_uas_sn_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_response_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.request_id , packet1.status , packet1.current_serial_number );
+    mavlink_msg_uh_easa_uas_sn_response_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uh_easa_uas_sn_response_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uh_easa_uas_sn_response_send(MAVLINK_COMM_1 , packet1.request_id , packet1.status , packet1.current_serial_number );
+    mavlink_msg_uh_easa_uas_sn_response_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("UH_EASA_UAS_SN_RESPONSE") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_UH_EASA_UAS_SN_RESPONSE) != NULL);
+#endif
+}
+
 static void mavlink_test_rotor_sensors(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -4865,6 +5115,10 @@ static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, 
     mavlink_test_uh_beyond_m_sensors(system_id, component_id, last_msg);
     mavlink_test_uvr_pilot_id(system_id, component_id, last_msg);
     mavlink_test_uvr_generic_data(system_id, component_id, last_msg);
+    mavlink_test_uh_easa_pilot_request(system_id, component_id, last_msg);
+    mavlink_test_uh_easa_pilot_response(system_id, component_id, last_msg);
+    mavlink_test_uh_easa_uas_sn_request(system_id, component_id, last_msg);
+    mavlink_test_uh_easa_uas_sn_response(system_id, component_id, last_msg);
     mavlink_test_rotor_sensors(system_id, component_id, last_msg);
     mavlink_test_electric_motor_sensors(system_id, component_id, last_msg);
     mavlink_test_power_board_info(system_id, component_id, last_msg);
