@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_ARDUPILOTMEGA.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_ARDUPILOTMEGA_XML_HASH -310924273375351180
+#define MAVLINK_ARDUPILOTMEGA_XML_HASH -8192512451185842997
 
 #ifdef __cplusplus
 extern "C" {
@@ -937,6 +937,19 @@ typedef enum OSD_PARAM_CONFIG_ERROR
    OSD_PARAM_INVALID_PARAMETER=3, /*  | */
    OSD_PARAM_CONFIG_ERROR_ENUM_END=4, /*  | */
 } OSD_PARAM_CONFIG_ERROR;
+#endif
+
+/** @brief EASA Pilot Authentication Commands. */
+#ifndef HAVE_ENUM_UH_EASA_PILOT_CMD
+#define HAVE_ENUM_UH_EASA_PILOT_CMD
+typedef enum UH_EASA_PILOT_CMD
+{
+   UH_EASA_GET_PILOT_LIST=0, /*  | */
+   UH_EASA_SAVE_PILOT=1, /*  | */
+   UH_EASA_AUTHENTICATE=2, /*  | */
+   UH_EASA_GET_CURRENT_PILOT=3, /*  | */
+   UH_EASA_PILOT_CMD_ENUM_END=4, /*  | */
+} UH_EASA_PILOT_CMD;
 #endif
 
 // MAVLINK VERSION

@@ -1081,6 +1081,13 @@
       <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
+    <enum name="UH_EASA_PILOT_CMD">
+      <description>EASA Pilot Authentication Commands.</description>
+      <entry value="0" name="UH_EASA_GET_PILOT_LIST"/>
+      <entry value="1" name="UH_EASA_SAVE_PILOT"/>
+      <entry value="2" name="UH_EASA_AUTHENTICATE"/>
+      <entry value="3" name="UH_EASA_GET_CURRENT_PILOT"/>
+    </enum>
   </enums>
   <messages>
     <message id="150" name="SENSOR_OFFSETS">
