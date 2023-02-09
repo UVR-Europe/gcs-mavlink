@@ -1081,12 +1081,27 @@
       <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
       <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
-    <enum name="UH_EASA_PILOT_CMD">
-      <description>EASA Pilot Authentication Commands.</description>
+    <enum name="UH_EASA_CMD">
+      <description>EASA Commands.</description>
       <entry value="0" name="UH_EASA_GET_PILOT_LIST"/>
       <entry value="1" name="UH_EASA_SAVE_PILOT"/>
       <entry value="2" name="UH_EASA_AUTHENTICATE"/>
       <entry value="3" name="UH_EASA_GET_CURRENT_PILOT"/>
+      <entry value="4" name="UH_EASA_ERASE_PILOT"/>
+      <entry value="5" name="UH_EASA_SN_GET"/>
+      <entry value="6" name="UH_EASA_SN_SET"/>
+    </enum>
+    <enum name="UH_EASA_CMD_STATUS">
+      <description>EASA Command Status</description>
+      <entry value="0" name="UH_EASA_CMD_STATUS_OK"/>
+      <entry value="1" name="UH_EASA_CMD_STATUS_WRONG_PILOT_INDEX"/>
+      <entry value="2" name="UH_EASA_CMD_STATUS_SANITY_FAILED"/>
+      <entry value="3" name="UH_EASA_CMD_STATUS_WRONG_SUM"/>
+      <entry value="4" name="UH_EASA_CMD_STATUS_WRONG_PILOT_SECRET"/>
+      <entry value="5" name="UH_EASA_CMD_STATUS_AUTH_FAILED"/>
+      <entry value="6" name="UH_EASA_CMD_STATUS_SAVE_DENIED"/>
+      <entry value="7" name="UH_EASA_CMD_STATUS_SAVE_FAILED"/>
+      <entry value="8" name="UH_EASA_CMD_STATUS_LOAD_FAILED"/>
     </enum>
   </enums>
   <messages>
@@ -1796,14 +1811,14 @@
     <message id="16001" name="UH_EASA_PILOT_REQUEST">
       <description>EASA Authentication Commands.</description>
       <field type="uint32_t" name="request_id">Request ID</field>
-      <field type="uint8_t" name="cmd" enum="UH_EASA_PILOT_CMD">Command Id</field>
+      <field type="uint8_t" name="cmd" enum="UH_EASA_CMD">Command Id (look enum UH_EASA_CMD)</field>
       <field type="uint8_t" name="pilot_index">Pilot index (0-4) optional</field>
       <field type="char[19]" name="pilot_data">3 chars country code, 12 chars number + 1 control sum, 3 chars secret</field>
     </message>
     <message id="16002" name="UH_EASA_PILOT_RESPONSE">
       <description>Response to Authentication Command.</description>
       <field type="uint32_t" name="request_id">Request ID</field>
-      <field type="uint8_t" name="status">Request Processing Status byte</field>
+      <field type="uint8_t" name="status" enum="UH_EASA_CMD_STATUS">Request Processing Status byte</field>
       <field type="int8_t" name="current_pilot_index">Currently Authenticated Pilot Index</field>
       <field type="char[19]" name="pilot1">Pilot1 data</field>
       <field type="char[19]" name="pilot2">Pilot2 data</field>
@@ -1814,13 +1829,14 @@
     <message id="16003" name="UH_EASA_UAS_SN_REQUEST">
       <description>EASA Serial Number Commands.</description>
       <field type="uint32_t" name="request_id">Request ID</field>
-      <field type="uint8_t" name="cmd">0 - get, 1 - set UAS serial number</field>
+      <field type="uint8_t" name="cmd" enum="UH_EASA_CMD">Command Id (look enum UH_EASA_CMD UH_EASA_SN_*)</field>
+      <field type="char[4]" name="pincode">Used only with serial_number during set</field>
       <field type="char[20]" name="serial_number">4 chars mfrr code, 1 char hex length code, 1-15 chars mfrr number</field>
     </message>
     <message id="16004" name="UH_EASA_UAS_SN_RESPONSE">
       <description>EASA Serial Number Commands.</description>
       <field type="uint32_t" name="request_id">Request ID</field>
-      <field type="uint8_t" name="status">Request Processing Status byte</field>
+      <field type="uint8_t" name="status" enum="UH_EASA_CMD_STATUS">Request Processing Status byte</field>
       <field type="char[20]" name="current_serial_number">Current UAS Serial Number</field>
     </message>
     <message id="20502" name="ROTOR_SENSORS">

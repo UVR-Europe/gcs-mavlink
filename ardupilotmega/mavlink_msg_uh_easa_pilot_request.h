@@ -6,7 +6,7 @@
 
 typedef struct __mavlink_uh_easa_pilot_request_t {
  uint32_t request_id; /*<  Request ID*/
- uint8_t cmd; /*<  Command Id*/
+ uint8_t cmd; /*<  Command Id (look enum UH_EASA_CMD)*/
  uint8_t pilot_index; /*<  Pilot index (0-4) optional*/
  char pilot_data[19]; /*<  3 chars country code, 12 chars number + 1 control sum, 3 chars secret*/
 } mavlink_uh_easa_pilot_request_t;
@@ -51,7 +51,7 @@ typedef struct __mavlink_uh_easa_pilot_request_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param request_id  Request ID
- * @param cmd  Command Id
+ * @param cmd  Command Id (look enum UH_EASA_CMD)
  * @param pilot_index  Pilot index (0-4) optional
  * @param pilot_data  3 chars country code, 12 chars number + 1 control sum, 3 chars secret
  * @return length of the message in bytes (excluding serial stream start sign)
@@ -86,7 +86,7 @@ static inline uint16_t mavlink_msg_uh_easa_pilot_request_pack(uint8_t system_id,
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param request_id  Request ID
- * @param cmd  Command Id
+ * @param cmd  Command Id (look enum UH_EASA_CMD)
  * @param pilot_index  Pilot index (0-4) optional
  * @param pilot_data  3 chars country code, 12 chars number + 1 control sum, 3 chars secret
  * @return length of the message in bytes (excluding serial stream start sign)
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_uh_easa_pilot_request_encode_chan(uint8_t sys
  * @param chan MAVLink channel to send the message
  *
  * @param request_id  Request ID
- * @param cmd  Command Id
+ * @param cmd  Command Id (look enum UH_EASA_CMD)
  * @param pilot_index  Pilot index (0-4) optional
  * @param pilot_data  3 chars country code, 12 chars number + 1 control sum, 3 chars secret
  */
@@ -188,7 +188,7 @@ static inline void mavlink_msg_uh_easa_pilot_request_send_struct(mavlink_channel
 
 #if MAVLINK_MSG_ID_UH_EASA_PILOT_REQUEST_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This variant of _send() can be used to save stack space by re-using
+  This varient of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -232,7 +232,7 @@ static inline uint32_t mavlink_msg_uh_easa_pilot_request_get_request_id(const ma
 /**
  * @brief Get field cmd from uh_easa_pilot_request message
  *
- * @return  Command Id
+ * @return  Command Id (look enum UH_EASA_CMD)
  */
 static inline uint8_t mavlink_msg_uh_easa_pilot_request_get_cmd(const mavlink_message_t* msg)
 {
