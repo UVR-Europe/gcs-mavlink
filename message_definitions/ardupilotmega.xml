@@ -1090,6 +1090,7 @@
       <entry value="4" name="UH_EASA_ERASE_PILOT"/>
       <entry value="5" name="UH_EASA_SN_GET"/>
       <entry value="6" name="UH_EASA_SN_SET"/>
+      <entry value="7" name="UH_EASA_UNAUTHENTICATE"/>
     </enum>
     <enum name="UH_EASA_CMD_STATUS">
       <description>EASA Command Status</description>
