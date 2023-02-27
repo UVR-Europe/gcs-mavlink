@@ -1840,6 +1840,42 @@
       <field type="uint8_t" name="status" enum="UH_EASA_CMD_STATUS">Request Processing Status byte</field>
       <field type="char[20]" name="current_serial_number">Current UAS Serial Number</field>
     </message>
+    <message id="16005" name="UVR_GENERIC_DATA_16">
+      <description>Use it to send any arbitrary named data (utility) without creating more message definitions.</description>
+      <field type="char[8]" name="id">id of data</field>
+      <field type="int16_t" name="data1">data 1</field>
+      <field type="int16_t" name="data2">data 2</field>
+      <field type="int16_t" name="data3">data 3</field>
+      <field type="int16_t" name="data4">data 4</field>
+      <field type="int16_t" name="data5">data 5</field>
+      <field type="int16_t" name="data6">data 6</field>
+      <field type="int16_t" name="data7">data 7</field>
+      <field type="int16_t" name="data8">data 8</field>
+      <field type="int16_t" name="data9">data 9</field>
+      <field type="int16_t" name="data10">data 10</field>
+      <field type="int16_t" name="data11">data 11</field>
+      <field type="int16_t" name="data12">data 12</field>
+      <field type="int16_t" name="data13">data 13</field>
+      <field type="int16_t" name="data14">data 14</field>
+      <field type="int16_t" name="data15">data 15</field>
+      <field type="int16_t" name="data16">data 16</field>
+      <field type="int16_t" name="data17">data 17</field>
+      <field type="int16_t" name="data18">data 18</field>
+      <field type="int16_t" name="data19">data 19</field>
+      <field type="int16_t" name="data20">data 20</field>
+      <field type="int16_t" name="data21">data 21</field>
+      <field type="int16_t" name="data22">data 22</field>
+      <field type="int16_t" name="data23">data 23</field>
+      <field type="int16_t" name="data24">data 24</field>
+      <field type="int16_t" name="data25">data 25</field>
+      <field type="int16_t" name="data26">data 26</field>
+      <field type="int16_t" name="data27">data 27</field>
+      <field type="int16_t" name="data28">data 28</field>
+      <field type="int16_t" name="data29">data 29</field>
+      <field type="int16_t" name="data30">data 30</field>
+      <field type="int16_t" name="data31">data 31</field>
+      <field type="int16_t" name="data32">data 32</field>
+    </message>
     <message id="20502" name="ROTOR_SENSORS">
       <description>AOrion ROTOR_SENSORS</description>
       <field type="uint8_t" name="id">id</field>

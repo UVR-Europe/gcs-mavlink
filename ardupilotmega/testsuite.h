@@ -4846,6 +4846,97 @@ static void mavlink_test_uh_easa_uas_sn_response(uint8_t system_id, uint8_t comp
 #endif
 }
 
+static void mavlink_test_uvr_generic_data_16(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_UVR_GENERIC_DATA_16 >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_uvr_generic_data_16_t packet_in = {
+        17235,17339,17443,17547,17651,17755,17859,17963,18067,18171,18275,18379,18483,18587,18691,18795,18899,19003,19107,19211,19315,19419,19523,19627,19731,19835,19939,20043,20147,20251,20355,20459,"MNOPQRS"
+    };
+    mavlink_uvr_generic_data_16_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.data1 = packet_in.data1;
+        packet1.data2 = packet_in.data2;
+        packet1.data3 = packet_in.data3;
+        packet1.data4 = packet_in.data4;
+        packet1.data5 = packet_in.data5;
+        packet1.data6 = packet_in.data6;
+        packet1.data7 = packet_in.data7;
+        packet1.data8 = packet_in.data8;
+        packet1.data9 = packet_in.data9;
+        packet1.data10 = packet_in.data10;
+        packet1.data11 = packet_in.data11;
+        packet1.data12 = packet_in.data12;
+        packet1.data13 = packet_in.data13;
+        packet1.data14 = packet_in.data14;
+        packet1.data15 = packet_in.data15;
+        packet1.data16 = packet_in.data16;
+        packet1.data17 = packet_in.data17;
+        packet1.data18 = packet_in.data18;
+        packet1.data19 = packet_in.data19;
+        packet1.data20 = packet_in.data20;
+        packet1.data21 = packet_in.data21;
+        packet1.data22 = packet_in.data22;
+        packet1.data23 = packet_in.data23;
+        packet1.data24 = packet_in.data24;
+        packet1.data25 = packet_in.data25;
+        packet1.data26 = packet_in.data26;
+        packet1.data27 = packet_in.data27;
+        packet1.data28 = packet_in.data28;
+        packet1.data29 = packet_in.data29;
+        packet1.data30 = packet_in.data30;
+        packet1.data31 = packet_in.data31;
+        packet1.data32 = packet_in.data32;
+        
+        mav_array_memcpy(packet1.id, packet_in.id, sizeof(char)*8);
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_UVR_GENERIC_DATA_16_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_UVR_GENERIC_DATA_16_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_generic_data_16_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_uvr_generic_data_16_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_generic_data_16_pack(system_id, component_id, &msg , packet1.id , packet1.data1 , packet1.data2 , packet1.data3 , packet1.data4 , packet1.data5 , packet1.data6 , packet1.data7 , packet1.data8 , packet1.data9 , packet1.data10 , packet1.data11 , packet1.data12 , packet1.data13 , packet1.data14 , packet1.data15 , packet1.data16 , packet1.data17 , packet1.data18 , packet1.data19 , packet1.data20 , packet1.data21 , packet1.data22 , packet1.data23 , packet1.data24 , packet1.data25 , packet1.data26 , packet1.data27 , packet1.data28 , packet1.data29 , packet1.data30 , packet1.data31 , packet1.data32 );
+    mavlink_msg_uvr_generic_data_16_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_generic_data_16_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.data1 , packet1.data2 , packet1.data3 , packet1.data4 , packet1.data5 , packet1.data6 , packet1.data7 , packet1.data8 , packet1.data9 , packet1.data10 , packet1.data11 , packet1.data12 , packet1.data13 , packet1.data14 , packet1.data15 , packet1.data16 , packet1.data17 , packet1.data18 , packet1.data19 , packet1.data20 , packet1.data21 , packet1.data22 , packet1.data23 , packet1.data24 , packet1.data25 , packet1.data26 , packet1.data27 , packet1.data28 , packet1.data29 , packet1.data30 , packet1.data31 , packet1.data32 );
+    mavlink_msg_uvr_generic_data_16_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_uvr_generic_data_16_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_uvr_generic_data_16_send(MAVLINK_COMM_1 , packet1.id , packet1.data1 , packet1.data2 , packet1.data3 , packet1.data4 , packet1.data5 , packet1.data6 , packet1.data7 , packet1.data8 , packet1.data9 , packet1.data10 , packet1.data11 , packet1.data12 , packet1.data13 , packet1.data14 , packet1.data15 , packet1.data16 , packet1.data17 , packet1.data18 , packet1.data19 , packet1.data20 , packet1.data21 , packet1.data22 , packet1.data23 , packet1.data24 , packet1.data25 , packet1.data26 , packet1.data27 , packet1.data28 , packet1.data29 , packet1.data30 , packet1.data31 , packet1.data32 );
+    mavlink_msg_uvr_generic_data_16_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("UVR_GENERIC_DATA_16") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_UVR_GENERIC_DATA_16) != NULL);
+#endif
+}
+
 static void mavlink_test_rotor_sensors(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -5120,6 +5211,7 @@ static void mavlink_test_ardupilotmega(uint8_t system_id, uint8_t component_id, 
     mavlink_test_uh_easa_pilot_response(system_id, component_id, last_msg);
     mavlink_test_uh_easa_uas_sn_request(system_id, component_id, last_msg);
     mavlink_test_uh_easa_uas_sn_response(system_id, component_id, last_msg);
+    mavlink_test_uvr_generic_data_16(system_id, component_id, last_msg);
     mavlink_test_rotor_sensors(system_id, component_id, last_msg);
     mavlink_test_electric_motor_sensors(system_id, component_id, last_msg);
     mavlink_test_power_board_info(system_id, component_id, last_msg);
