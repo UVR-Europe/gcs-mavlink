@@ -4414,7 +4414,7 @@ static void mavlink_test_uh_beyond_m_sensors(uint8_t system_id, uint8_t componen
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_uh_beyond_m_sensors_t packet_in = {
-        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,20147
+        17.0,45.0,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,20147,20251,20355
     };
     mavlink_uh_beyond_m_sensors_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -4432,6 +4432,8 @@ static void mavlink_test_uh_beyond_m_sensors(uint8_t system_id, uint8_t componen
         packet1.pressure_manifold = packet_in.pressure_manifold;
         packet1.level_fuel = packet_in.level_fuel;
         packet1.battery_12v = packet_in.battery_12v;
+        packet1.rotor_rpm = packet_in.rotor_rpm;
+        packet1.engine_rpm = packet_in.engine_rpm;
         packet1.status_bits = packet_in.status_bits;
         
         
@@ -4447,12 +4449,12 @@ static void mavlink_test_uh_beyond_m_sensors(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uh_beyond_m_sensors_pack(system_id, component_id, &msg , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.battery_12v , packet1.status_bits );
+    mavlink_msg_uh_beyond_m_sensors_pack(system_id, component_id, &msg , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.rotor_rpm , packet1.engine_rpm , packet1.battery_12v , packet1.status_bits );
     mavlink_msg_uh_beyond_m_sensors_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uh_beyond_m_sensors_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.battery_12v , packet1.status_bits );
+    mavlink_msg_uh_beyond_m_sensors_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.rotor_rpm , packet1.engine_rpm , packet1.battery_12v , packet1.status_bits );
     mavlink_msg_uh_beyond_m_sensors_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -4465,7 +4467,7 @@ static void mavlink_test_uh_beyond_m_sensors(uint8_t system_id, uint8_t componen
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_uh_beyond_m_sensors_send(MAVLINK_COMM_1 , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.battery_12v , packet1.status_bits );
+    mavlink_msg_uh_beyond_m_sensors_send(MAVLINK_COMM_1 , packet1.temperature_EG1 , packet1.temperature_EG2 , packet1.temperature_EG3 , packet1.temperature_EG4 , packet1.temperature_CHT1 , packet1.temperature_CHT2 , packet1.temperature_oil , packet1.temperature_coolant , packet1.temperature_gearbox , packet1.pressure_fuel , packet1.pressure_oil , packet1.pressure_manifold , packet1.level_fuel , packet1.rotor_rpm , packet1.engine_rpm , packet1.battery_12v , packet1.status_bits );
     mavlink_msg_uh_beyond_m_sensors_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 

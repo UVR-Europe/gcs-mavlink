@@ -19,16 +19,18 @@ typedef struct __mavlink_uh_beyond_m_sensors_t {
  float pressure_manifold; /*<  Manifold pressure*/
  float level_fuel; /*<  Fuel level*/
  float battery_12v; /*<  Battery voltage (12V)*/
+ int16_t rotor_rpm; /*<  Rotor RPM*/
+ int16_t engine_rpm; /*<  Engine RPM*/
  uint16_t status_bits; /*<  Equipment status bits. b0=fuel pressure*/
 } mavlink_uh_beyond_m_sensors_t;
 
-#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN 58
-#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN 58
-#define MAVLINK_MSG_ID_15007_LEN 58
-#define MAVLINK_MSG_ID_15007_MIN_LEN 58
+#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN 62
+#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN 62
+#define MAVLINK_MSG_ID_15007_LEN 62
+#define MAVLINK_MSG_ID_15007_MIN_LEN 62
 
-#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC 102
-#define MAVLINK_MSG_ID_15007_CRC 102
+#define MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC 220
+#define MAVLINK_MSG_ID_15007_CRC 220
 
 
 
@@ -36,7 +38,7 @@ typedef struct __mavlink_uh_beyond_m_sensors_t {
 #define MAVLINK_MESSAGE_INFO_UH_BEYOND_M_SENSORS { \
     15007, \
     "UH_BEYOND_M_SENSORS", \
-    15, \
+    17, \
     {  { "temperature_EG1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG1) }, \
          { "temperature_EG2", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG2) }, \
          { "temperature_EG3", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG3) }, \
@@ -50,14 +52,16 @@ typedef struct __mavlink_uh_beyond_m_sensors_t {
          { "pressure_oil", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_uh_beyond_m_sensors_t, pressure_oil) }, \
          { "pressure_manifold", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_uh_beyond_m_sensors_t, pressure_manifold) }, \
          { "level_fuel", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_uh_beyond_m_sensors_t, level_fuel) }, \
+         { "rotor_rpm", NULL, MAVLINK_TYPE_INT16_T, 0, 56, offsetof(mavlink_uh_beyond_m_sensors_t, rotor_rpm) }, \
+         { "engine_rpm", NULL, MAVLINK_TYPE_INT16_T, 0, 58, offsetof(mavlink_uh_beyond_m_sensors_t, engine_rpm) }, \
          { "battery_12v", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_uh_beyond_m_sensors_t, battery_12v) }, \
-         { "status_bits", NULL, MAVLINK_TYPE_UINT16_T, 0, 56, offsetof(mavlink_uh_beyond_m_sensors_t, status_bits) }, \
+         { "status_bits", NULL, MAVLINK_TYPE_UINT16_T, 0, 60, offsetof(mavlink_uh_beyond_m_sensors_t, status_bits) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_UH_BEYOND_M_SENSORS { \
     "UH_BEYOND_M_SENSORS", \
-    15, \
+    17, \
     {  { "temperature_EG1", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG1) }, \
          { "temperature_EG2", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG2) }, \
          { "temperature_EG3", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_uh_beyond_m_sensors_t, temperature_EG3) }, \
@@ -71,8 +75,10 @@ typedef struct __mavlink_uh_beyond_m_sensors_t {
          { "pressure_oil", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_uh_beyond_m_sensors_t, pressure_oil) }, \
          { "pressure_manifold", NULL, MAVLINK_TYPE_FLOAT, 0, 44, offsetof(mavlink_uh_beyond_m_sensors_t, pressure_manifold) }, \
          { "level_fuel", NULL, MAVLINK_TYPE_FLOAT, 0, 48, offsetof(mavlink_uh_beyond_m_sensors_t, level_fuel) }, \
+         { "rotor_rpm", NULL, MAVLINK_TYPE_INT16_T, 0, 56, offsetof(mavlink_uh_beyond_m_sensors_t, rotor_rpm) }, \
+         { "engine_rpm", NULL, MAVLINK_TYPE_INT16_T, 0, 58, offsetof(mavlink_uh_beyond_m_sensors_t, engine_rpm) }, \
          { "battery_12v", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_uh_beyond_m_sensors_t, battery_12v) }, \
-         { "status_bits", NULL, MAVLINK_TYPE_UINT16_T, 0, 56, offsetof(mavlink_uh_beyond_m_sensors_t, status_bits) }, \
+         { "status_bits", NULL, MAVLINK_TYPE_UINT16_T, 0, 60, offsetof(mavlink_uh_beyond_m_sensors_t, status_bits) }, \
          } \
 }
 #endif
@@ -96,12 +102,14 @@ typedef struct __mavlink_uh_beyond_m_sensors_t {
  * @param pressure_oil  Oil pressure
  * @param pressure_manifold  Manifold pressure
  * @param level_fuel  Fuel level
+ * @param rotor_rpm  Rotor RPM
+ * @param engine_rpm  Engine RPM
  * @param battery_12v  Battery voltage (12V)
  * @param status_bits  Equipment status bits. b0=fuel pressure
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, float battery_12v, uint16_t status_bits)
+                               float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, int16_t rotor_rpm, int16_t engine_rpm, float battery_12v, uint16_t status_bits)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN];
@@ -119,7 +127,9 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack(uint8_t system_id, u
     _mav_put_float(buf, 44, pressure_manifold);
     _mav_put_float(buf, 48, level_fuel);
     _mav_put_float(buf, 52, battery_12v);
-    _mav_put_uint16_t(buf, 56, status_bits);
+    _mav_put_int16_t(buf, 56, rotor_rpm);
+    _mav_put_int16_t(buf, 58, engine_rpm);
+    _mav_put_uint16_t(buf, 60, status_bits);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN);
 #else
@@ -138,6 +148,8 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack(uint8_t system_id, u
     packet.pressure_manifold = pressure_manifold;
     packet.level_fuel = level_fuel;
     packet.battery_12v = battery_12v;
+    packet.rotor_rpm = rotor_rpm;
+    packet.engine_rpm = engine_rpm;
     packet.status_bits = status_bits;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN);
@@ -166,13 +178,15 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack(uint8_t system_id, u
  * @param pressure_oil  Oil pressure
  * @param pressure_manifold  Manifold pressure
  * @param level_fuel  Fuel level
+ * @param rotor_rpm  Rotor RPM
+ * @param engine_rpm  Engine RPM
  * @param battery_12v  Battery voltage (12V)
  * @param status_bits  Equipment status bits. b0=fuel pressure
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float temperature_EG1,float temperature_EG2,float temperature_EG3,float temperature_EG4,float temperature_CHT1,float temperature_CHT2,float temperature_oil,float temperature_coolant,float temperature_gearbox,float pressure_fuel,float pressure_oil,float pressure_manifold,float level_fuel,float battery_12v,uint16_t status_bits)
+                                   float temperature_EG1,float temperature_EG2,float temperature_EG3,float temperature_EG4,float temperature_CHT1,float temperature_CHT2,float temperature_oil,float temperature_coolant,float temperature_gearbox,float pressure_fuel,float pressure_oil,float pressure_manifold,float level_fuel,int16_t rotor_rpm,int16_t engine_rpm,float battery_12v,uint16_t status_bits)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN];
@@ -190,7 +204,9 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack_chan(uint8_t system_
     _mav_put_float(buf, 44, pressure_manifold);
     _mav_put_float(buf, 48, level_fuel);
     _mav_put_float(buf, 52, battery_12v);
-    _mav_put_uint16_t(buf, 56, status_bits);
+    _mav_put_int16_t(buf, 56, rotor_rpm);
+    _mav_put_int16_t(buf, 58, engine_rpm);
+    _mav_put_uint16_t(buf, 60, status_bits);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN);
 #else
@@ -209,6 +225,8 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack_chan(uint8_t system_
     packet.pressure_manifold = pressure_manifold;
     packet.level_fuel = level_fuel;
     packet.battery_12v = battery_12v;
+    packet.rotor_rpm = rotor_rpm;
+    packet.engine_rpm = engine_rpm;
     packet.status_bits = status_bits;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN);
@@ -228,7 +246,7 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_pack_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_uh_beyond_m_sensors_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uh_beyond_m_sensors_t* uh_beyond_m_sensors)
 {
-    return mavlink_msg_uh_beyond_m_sensors_pack(system_id, component_id, msg, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
+    return mavlink_msg_uh_beyond_m_sensors_pack(system_id, component_id, msg, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->rotor_rpm, uh_beyond_m_sensors->engine_rpm, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
 }
 
 /**
@@ -242,7 +260,7 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_encode(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_uh_beyond_m_sensors_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uh_beyond_m_sensors_t* uh_beyond_m_sensors)
 {
-    return mavlink_msg_uh_beyond_m_sensors_pack_chan(system_id, component_id, chan, msg, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
+    return mavlink_msg_uh_beyond_m_sensors_pack_chan(system_id, component_id, chan, msg, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->rotor_rpm, uh_beyond_m_sensors->engine_rpm, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
 }
 
 /**
@@ -262,12 +280,14 @@ static inline uint16_t mavlink_msg_uh_beyond_m_sensors_encode_chan(uint8_t syste
  * @param pressure_oil  Oil pressure
  * @param pressure_manifold  Manifold pressure
  * @param level_fuel  Fuel level
+ * @param rotor_rpm  Rotor RPM
+ * @param engine_rpm  Engine RPM
  * @param battery_12v  Battery voltage (12V)
  * @param status_bits  Equipment status bits. b0=fuel pressure
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uh_beyond_m_sensors_send(mavlink_channel_t chan, float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, float battery_12v, uint16_t status_bits)
+static inline void mavlink_msg_uh_beyond_m_sensors_send(mavlink_channel_t chan, float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, int16_t rotor_rpm, int16_t engine_rpm, float battery_12v, uint16_t status_bits)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN];
@@ -285,7 +305,9 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send(mavlink_channel_t chan, 
     _mav_put_float(buf, 44, pressure_manifold);
     _mav_put_float(buf, 48, level_fuel);
     _mav_put_float(buf, 52, battery_12v);
-    _mav_put_uint16_t(buf, 56, status_bits);
+    _mav_put_int16_t(buf, 56, rotor_rpm);
+    _mav_put_int16_t(buf, 58, engine_rpm);
+    _mav_put_uint16_t(buf, 60, status_bits);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS, buf, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC);
 #else
@@ -304,6 +326,8 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send(mavlink_channel_t chan, 
     packet.pressure_manifold = pressure_manifold;
     packet.level_fuel = level_fuel;
     packet.battery_12v = battery_12v;
+    packet.rotor_rpm = rotor_rpm;
+    packet.engine_rpm = engine_rpm;
     packet.status_bits = status_bits;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS, (const char *)&packet, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC);
@@ -318,7 +342,7 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send(mavlink_channel_t chan, 
 static inline void mavlink_msg_uh_beyond_m_sensors_send_struct(mavlink_channel_t chan, const mavlink_uh_beyond_m_sensors_t* uh_beyond_m_sensors)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uh_beyond_m_sensors_send(chan, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
+    mavlink_msg_uh_beyond_m_sensors_send(chan, uh_beyond_m_sensors->temperature_EG1, uh_beyond_m_sensors->temperature_EG2, uh_beyond_m_sensors->temperature_EG3, uh_beyond_m_sensors->temperature_EG4, uh_beyond_m_sensors->temperature_CHT1, uh_beyond_m_sensors->temperature_CHT2, uh_beyond_m_sensors->temperature_oil, uh_beyond_m_sensors->temperature_coolant, uh_beyond_m_sensors->temperature_gearbox, uh_beyond_m_sensors->pressure_fuel, uh_beyond_m_sensors->pressure_oil, uh_beyond_m_sensors->pressure_manifold, uh_beyond_m_sensors->level_fuel, uh_beyond_m_sensors->rotor_rpm, uh_beyond_m_sensors->engine_rpm, uh_beyond_m_sensors->battery_12v, uh_beyond_m_sensors->status_bits);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS, (const char *)uh_beyond_m_sensors, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC);
 #endif
@@ -332,7 +356,7 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uh_beyond_m_sensors_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, float battery_12v, uint16_t status_bits)
+static inline void mavlink_msg_uh_beyond_m_sensors_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float temperature_EG1, float temperature_EG2, float temperature_EG3, float temperature_EG4, float temperature_CHT1, float temperature_CHT2, float temperature_oil, float temperature_coolant, float temperature_gearbox, float pressure_fuel, float pressure_oil, float pressure_manifold, float level_fuel, int16_t rotor_rpm, int16_t engine_rpm, float battery_12v, uint16_t status_bits)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -350,7 +374,9 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send_buf(mavlink_message_t *m
     _mav_put_float(buf, 44, pressure_manifold);
     _mav_put_float(buf, 48, level_fuel);
     _mav_put_float(buf, 52, battery_12v);
-    _mav_put_uint16_t(buf, 56, status_bits);
+    _mav_put_int16_t(buf, 56, rotor_rpm);
+    _mav_put_int16_t(buf, 58, engine_rpm);
+    _mav_put_uint16_t(buf, 60, status_bits);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS, buf, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC);
 #else
@@ -369,6 +395,8 @@ static inline void mavlink_msg_uh_beyond_m_sensors_send_buf(mavlink_message_t *m
     packet->pressure_manifold = pressure_manifold;
     packet->level_fuel = level_fuel;
     packet->battery_12v = battery_12v;
+    packet->rotor_rpm = rotor_rpm;
+    packet->engine_rpm = engine_rpm;
     packet->status_bits = status_bits;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS, (const char *)packet, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_MIN_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN, MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_CRC);
@@ -512,6 +540,26 @@ static inline float mavlink_msg_uh_beyond_m_sensors_get_level_fuel(const mavlink
 }
 
 /**
+ * @brief Get field rotor_rpm from uh_beyond_m_sensors message
+ *
+ * @return  Rotor RPM
+ */
+static inline int16_t mavlink_msg_uh_beyond_m_sensors_get_rotor_rpm(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  56);
+}
+
+/**
+ * @brief Get field engine_rpm from uh_beyond_m_sensors message
+ *
+ * @return  Engine RPM
+ */
+static inline int16_t mavlink_msg_uh_beyond_m_sensors_get_engine_rpm(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  58);
+}
+
+/**
  * @brief Get field battery_12v from uh_beyond_m_sensors message
  *
  * @return  Battery voltage (12V)
@@ -528,7 +576,7 @@ static inline float mavlink_msg_uh_beyond_m_sensors_get_battery_12v(const mavlin
  */
 static inline uint16_t mavlink_msg_uh_beyond_m_sensors_get_status_bits(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  56);
+    return _MAV_RETURN_uint16_t(msg,  60);
 }
 
 /**
@@ -554,6 +602,8 @@ static inline void mavlink_msg_uh_beyond_m_sensors_decode(const mavlink_message_
     uh_beyond_m_sensors->pressure_manifold = mavlink_msg_uh_beyond_m_sensors_get_pressure_manifold(msg);
     uh_beyond_m_sensors->level_fuel = mavlink_msg_uh_beyond_m_sensors_get_level_fuel(msg);
     uh_beyond_m_sensors->battery_12v = mavlink_msg_uh_beyond_m_sensors_get_battery_12v(msg);
+    uh_beyond_m_sensors->rotor_rpm = mavlink_msg_uh_beyond_m_sensors_get_rotor_rpm(msg);
+    uh_beyond_m_sensors->engine_rpm = mavlink_msg_uh_beyond_m_sensors_get_engine_rpm(msg);
     uh_beyond_m_sensors->status_bits = mavlink_msg_uh_beyond_m_sensors_get_status_bits(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN? msg->len : MAVLINK_MSG_ID_UH_BEYOND_M_SENSORS_LEN;
