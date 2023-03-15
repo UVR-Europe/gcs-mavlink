@@ -1796,6 +1796,7 @@
        <field type="float" name="pressure_oil">Oil pressure</field>
        <field type="float" name="pressure_manifold">Manifold pressure</field>
        <field type="float" name="level_fuel">Fuel level</field>
+       <field type="float" name="pressure_frame">Frame pressure</field>
        <field type="int16_t" name="rotor_rpm">Rotor RPM</field>
        <field type="int16_t" name="engine_rpm">Engine RPM</field>
        <field type="float" name="battery_12v">Battery voltage (12V)</field>
