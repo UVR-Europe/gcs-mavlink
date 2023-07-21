@@ -1879,6 +1879,20 @@
       <field type="int16_t" name="data31">data 31</field>
       <field type="int16_t" name="data32">data 32</field>
     </message>
+    <message id="16006" name="UH_TURBINE_INSPECTION">
+       <description>Circle for turbine insp feedback</description>
+       <field type="float" name="param1">data</field>
+       <field type="float" name="param2">data</field>
+       <field type="float" name="param3">data</field>
+       <field type="float" name="param4">data</field>
+       <field type="float" name="param5">data</field>
+       <field type="float" name="param6">data</field>
+       <field type="float" name="param7">data</field>
+       <field type="float" name="param8">data</field>
+       <field type="float" name="param9">data</field>
+    </message>
+    
+    
     <message id="20502" name="ROTOR_SENSORS">
       <description>AOrion ROTOR_SENSORS</description>
       <field type="uint8_t" name="id">id</field>
